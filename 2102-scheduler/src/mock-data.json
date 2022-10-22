@@ -1,0 +1,42 @@
+[
+    {
+      "id": 1,
+      "sn": 1,
+      "model_no": "BFP19D(602",
+      "scope_type": "Bronchoscope",
+      "brand_no": "Olympus",
+      "serial_number": "2912702"
+    },
+    {
+      "id": 2,
+      "sn": 2,
+      "model_no": "EG78D2(361)",
+      "scope_type": "OGD",
+      "brand_no": "Fujinon",
+      "serial_number": "SG403K"
+    },
+    {
+      "id": 3,
+      "sn": 3,
+      "model_no": "PDG110(227)",
+      "scope_type": "OGD",
+      "brand_no": "Olympus",
+      "serial_number": "2R7023L"
+    },
+    {
+      "id": 4,
+      "sn": 4,
+      "model_no": "CHA222(017)",
+      "scope_type": "Bronchoscope",
+      "brand_no": "Fujinon",
+      "serial_number": "8B1234A"
+    },
+    {
+      "id": 5,
+      "sn": 5,
+      "model_no": "Bangkok",
+      "scope_type": "Bangtits",
+      "brand_no": "Bangpusi",
+      "serial_number": "Bangtits"
+    }
+  ]
