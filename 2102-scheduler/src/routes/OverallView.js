@@ -1,15 +1,15 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import LogRecordsPage from '../components/LogRecords'
+import OverallViewPage from '../components/OverallView'
 
-const LogRecords = () => {
+const OverallView = () => {
     return (
         <div>
             <Navbar />
-            <LogRecordsPage />
+            <OverallViewPage />
         
         </div>
     )
 }
 
-export default LogRecords;
+export default OverallView;

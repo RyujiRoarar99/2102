@@ -1,28 +1,27 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-
-import Home from "./routes/Home";
-import SlotAllocation from "./routes/SlotAllocation";
-import EquipmentScheduling from "./routes/EquipmentScheduling";
-import EquipmentOverview from "./routes/EquipmentOverview";
-import LogRecords from "./routes/LogRecords";
+import React from 'react'
+import {Routes, Route} from 'react-router-dom'
+import Home from './routes/Home'
+import SlotAllocation from './routes/SlotAllocation'
+import EquipmentScheduling from './routes/EquipmentScheduling'
+import OverallView from './routes/OverallView'
+import LogRecords from './routes/LogRecords'
 import LogInPage from './routes/LogInPage'
 import RegisterPage from './routes/RegisterPage'
 
 function App() {
-    return (
-        <>
-            <Routes>
-                <Route path='/' element={<LogInPage />} />
-                <Route path='/RegisterPage' element={<RegisterPage />} />
-                <Route path='/Home' element={<Home/>} />
-                <Route path="/SlotAllocation" element={<SlotAllocation />} />
-                <Route path="/EquipmentScheduling" element={<EquipmentScheduling />} />
-                <Route path="/EquipmentOverview" element={<EquipmentOverview />} />
-                <Route path="/LogRecords" element={<LogRecords />} />
-            </Routes>
-        </>
-    );
-    }
-export default App
+  return (
+    <>
+      <Routes>
+        <Route path='/' element={<LogInPage />} />
+        <Route path='/RegisterPage' element={<RegisterPage />} />
+        <Route path='/Home' element={<Home/>} />
+        <Route path='/SlotAllocation' element={< SlotAllocation/>} />
+        <Route path='/EquipmentScheduling' element={< EquipmentScheduling/>} />
+        <Route path='/OverallView' element={< OverallView/>} />
+        <Route path='/LogRecords' element={< LogRecords/>} />
+      </Routes>
+    </>
+  );
+}
+
+export default App;

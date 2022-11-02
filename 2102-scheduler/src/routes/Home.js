@@ -1,15 +1,15 @@
-import React from "react";
-import NavBar from "../components/NavBar";
-import Table from "../components/Table";
-import Button from "react-bootstrap/Button";
+import React from 'react'
+import Navbar from '../components/Navbar'
+import Table from '../components/Table'
+
 
 const Home = () => {
     return (
         <div>
-            <NavBar />
+            <Navbar />
             <Table />
         </div>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
