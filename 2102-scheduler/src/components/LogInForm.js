@@ -16,11 +16,11 @@ const LogInForm = () => {
 
 
   return (
-    <div className="loginpage">
+    <div className="page-login">
       <img src={Hospital} className="logo" alt="" />
       
-      <div className="cover">
-        <h1 className="login-text">Login</h1>
+      <div className="cover-login">
+        <h1 className="text-login">Login</h1>
         
         <input className="input-login" type="text" placeholder="ID"></input>
         <input className="input-login" type="text" placeholder="Password"></input>

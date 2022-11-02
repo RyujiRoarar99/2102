@@ -3,7 +3,7 @@
   box-sizing: border-box;
 }
 
-.loginpage{
+.page-login{
   height: 100vh;
   width: 100%;
   display: flex;
@@ -14,7 +14,7 @@
   background-color: antiquewhite;
 }
 
-.cover{
+.cover-login{
   background-color: white;
   width: 30em;
   height: 30em;

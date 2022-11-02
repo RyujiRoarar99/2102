@@ -16,11 +16,11 @@ const RegisterForm = () => {
 
 
   return (
-    <div className="registerpage">
+    <div className="page-register">
       <img src={Hospital} className="logo" alt="" />
       
-      <div className="cover">
-        <h1 className="register-text">Register</h1>
+      <div className="cover-register">
+        <h1 className="text-register">Register</h1>
 
         <input className="input-register" type="text" placeholder="ID"></input>
         <input className="input-register" type="text" placeholder="First Name"></input>
