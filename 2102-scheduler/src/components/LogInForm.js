@@ -30,8 +30,12 @@ const LogInForm = () => {
           {/* <label className="label-login">Password</label> */}
           <input className="input-login" type="text" placeholder="Password"></input>
         </div>
-        <div className="login-btn" >Login</div>
-
+        
+        <div className="login-page-buttons">
+          <div className="login-btn">Login</div>
+          <div className="register-btn">Register</div>
+        </div>
+      
       </div>
     </div>
   );
