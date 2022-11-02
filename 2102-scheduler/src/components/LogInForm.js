@@ -22,14 +22,8 @@ const LogInForm = () => {
       <div className="cover">
         <h1 className="login-text">Login</h1>
         
-        <div>
-          {/* <label className="label-login">ID</label> */}
-          <input className="input-login" type="text" placeholder="ID"></input>
-        </div>
-        <div>
-          {/* <label className="label-login">Password</label> */}
-          <input className="input-login" type="text" placeholder="Password"></input>
-        </div>
+        <input className="input-login" type="text" placeholder="ID"></input>
+        <input className="input-login" type="text" placeholder="Password"></input>
         
         <div className="login-page-buttons">
           <div className="login-btn">Login</div>

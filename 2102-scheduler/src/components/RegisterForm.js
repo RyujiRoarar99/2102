@@ -3,7 +3,7 @@ import "./RegisterForm.css";
 import Hospital from "../assets/hospital.jpg";
 
 
-const LogInForm = () => {
+const RegisterForm = () => {
 
   // **to implement sessions
   // ***using hook for invalid information login 
@@ -16,24 +16,21 @@ const LogInForm = () => {
 
 
   return (
-    <div className="loginpage">
+    <div className="registerpage">
       <img src={Hospital} className="logo" alt="" />
       
       <div className="cover">
-        <h1 className="login-text">Login</h1>
+        <h1 className="register-text">Register</h1>
+
+        <input className="input-register" type="text" placeholder="ID"></input>
+        <input className="input-register" type="text" placeholder="First Name"></input>
+        <input className="input-register" type="text" placeholder="Last Name"></input>
+        <input className="input-register" type="text" placeholder="Password"></input>
+        <input className="input-register" type="text" placeholder="Confirm Password"></input>
         
-        <div>
-          {/* <label className="label-login">ID</label> */}
-          <input className="input-login" type="text" placeholder="ID"></input>
-        </div>
-        <div>
-          {/* <label className="label-login">Password</label> */}
-          <input className="input-login" type="text" placeholder="Password"></input>
-        </div>
-        
-        <div className="login-page-buttons">
-          <div className="login-btn">Login</div>
+        <div className="register-page-buttons">
           <div className="register-btn">Register</div>
+          <div className="already-registered-btn">Already Registered</div>
         </div>
       
       </div>
@@ -41,4 +38,4 @@ const LogInForm = () => {
   );
 };
 
-export default LogInForm;
+export default RegisterForm;
