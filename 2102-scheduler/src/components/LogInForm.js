@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import "./LogInForm.css";
 import Hospital from "../assets/hospital.jpg";
 
+
 const LogInForm = () => {
 
-  // ***using hook for invalid information login
+  // **to implement sessions
+  // ***using hook for invalid information login 
   // const [popupStyle, showPopup] = useState("hide")
 
   // const popup = () => {
