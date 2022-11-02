@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LogInPage />} />
         <Route path='/RegisterPage' element={<RegisterPage />} />
-        <Route path='/Home' element={< Home/>} />
+        <Route path='/Home' element={<Home/>} />
         <Route path='/SlotAllocation' element={< SlotAllocation/>} />
         <Route path='/EquipmentScheduling' element={< EquipmentScheduling/>} />
         <Route path='/OverallView' element={< OverallView/>} />
