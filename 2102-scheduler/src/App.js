@@ -1,6 +1,5 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom'
-
 import Home from './routes/Home'
 import SlotAllocation from './routes/SlotAllocation'
 import EquipmentScheduling from './routes/EquipmentScheduling'
@@ -13,7 +12,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<RegisterPage />} />
+        <Route path='/' element={<LogInPage />} />
+        <Route path='/RegisterPage' element={<RegisterPage />} />
         <Route path='/Home' element={< Home/>} />
         <Route path='/SlotAllocation' element={< SlotAllocation/>} />
         <Route path='/EquipmentScheduling' element={< EquipmentScheduling/>} />

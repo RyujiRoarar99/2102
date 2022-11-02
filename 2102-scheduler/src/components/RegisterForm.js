@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import "./RegisterForm.css";
+import {Link} from 'react-router-dom'
 import Hospital from "../assets/hospital.jpg";
-
+import "./RegisterForm.css";
 
 const RegisterForm = () => {
 
@@ -29,8 +29,12 @@ const RegisterForm = () => {
         <input className="input-register" type="text" placeholder="Confirm Password"></input>
         
         <div className="register-page-buttons">
-          <div className="register-btn">Register</div>
-          <div className="already-registered-btn">Already Registered</div>
+          <div className="register-btn">
+            <Link to='/'>Register</Link>
+          </div>
+          <div className="already-registered-btn">
+            <Link to='/'>Already Registered</Link>
+          </div>
         </div>
       
       </div>

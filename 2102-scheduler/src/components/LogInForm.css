@@ -57,7 +57,7 @@ input:focus{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  transition: 0.5s;
+  transition: 0.01s;
   border-radius: 0.25em;
   cursor: pointer;
   font-weight: bold;

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import "./LogInForm.css";
+import {Link} from 'react-router-dom'
 import Hospital from "../assets/hospital.jpg";
-
+import "./LogInForm.css";
 
 const LogInForm = () => {
 
@@ -26,8 +26,12 @@ const LogInForm = () => {
         <input className="input-login" type="text" placeholder="Password"></input>
         
         <div className="login-page-buttons">
-          <div className="login-btn">Login</div>
-          <div className="register-btn">Register</div>
+          <div className="login-btn">
+            <Link to='/Home'>Login</Link>
+          </div>
+          <div className="register-btn">
+            <Link to='/RegisterPage'>Register</Link>
+          </div>
         </div>
       
       </div>
