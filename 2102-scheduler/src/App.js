@@ -7,12 +7,13 @@ import EquipmentScheduling from './routes/EquipmentScheduling'
 import OverallView from './routes/OverallView'
 import LogRecords from './routes/LogRecords'
 import LogInPage from './routes/LogInPage'
+import RegisterPage from './routes/RegisterPage'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<LogInPage />} />
+        <Route path='/' element={<RegisterPage />} />
         <Route path='/Home' element={< Home/>} />
         <Route path='/SlotAllocation' element={< SlotAllocation/>} />
         <Route path='/EquipmentScheduling' element={< EquipmentScheduling/>} />
