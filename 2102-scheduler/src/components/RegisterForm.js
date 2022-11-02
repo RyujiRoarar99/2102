@@ -17,7 +17,7 @@ const RegisterForm = () => {
 
   return (
     <div className="page-register">
-      <img src={Hospital} className="logo" alt="" />
+      <img src={Hospital} className="logo-register" alt="" />
       
       <div className="cover-register">
         <h1 className="text-register">Register</h1>

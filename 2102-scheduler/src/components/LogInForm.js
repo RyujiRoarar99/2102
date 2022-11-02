@@ -17,7 +17,7 @@ const LogInForm = () => {
 
   return (
     <div className="page-login">
-      <img src={Hospital} className="logo" alt="" />
+      <img src={Hospital} className="logo-login" alt="" />
       
       <div className="cover-login">
         <h1 className="text-login">Login</h1>
