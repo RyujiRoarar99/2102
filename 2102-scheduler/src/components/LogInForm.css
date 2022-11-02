@@ -60,6 +60,7 @@ input:focus{
   transition: 0.5s;
   border-radius: 0.25em;
   cursor: pointer;
+  font-weight: bold;
 } 
 
 .login-btn:hover { transform: scale(1.10)}
