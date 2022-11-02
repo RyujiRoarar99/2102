@@ -1,8 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import "./LogInForm.css";
 import Hospital from "../assets/hospital.jpg";
 
 const LogInForm = () => {
+
+  // ***using hook for invalid information login
+  // const [popupStyle, showPopup] = useState("hide")
+
+  // const popup = () => {
+  //   showPopup("login-popup")
+  //   setTimeout(() => showPopup("hide"), 3000)
+  // }
+
+
   return (
     <div className="loginpage">
       <img src={Hospital} className="logo" alt="" />
@@ -10,10 +20,15 @@ const LogInForm = () => {
       <div className="cover">
         <h1 className="login-text">Login</h1>
         
-        <input type="text" placeholder="ID"></input>
-        <input type="text" placeholder="Password"></input>
-        
-        <button className="login-btn">Login</button>
+        <div>
+          {/* <label className="label-login">ID</label> */}
+          <input className="input-login" type="text" placeholder="ID"></input>
+        </div>
+        <div>
+          {/* <label className="label-login">Password</label> */}
+          <input className="input-login" type="text" placeholder="Password"></input>
+        </div>
+        <div className="login-btn" >Login</div>
 
       </div>
     </div>

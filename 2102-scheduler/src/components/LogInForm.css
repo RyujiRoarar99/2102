@@ -11,6 +11,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
+  background-color: antiquewhite;
 }
 
 .cover{
@@ -25,3 +26,38 @@
   align-items: center;
   justify-content: space-around;
 }
+
+input {
+  border: none;
+  background-color: rgb(229, 226, 226);
+  height: 4em;
+  width: 30em;
+  border-radius: 0.25em;
+  text-align: center;
+  padding: 2em;
+}
+
+input:focus{
+  outline-color: rgb(32, 177, 255);
+}
+.login-btn {
+  border: none;
+  width: 40%;
+  height: 3em;
+  background-color: rgb(32, 177, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  border-radius: 0.25em;
+  cursor: pointer;
+}
+
+.login-btn:hover { transform: scale(1.25)}
+
+.text {
+  position: relative;
+  bottom: -2em;
+}
+
+
