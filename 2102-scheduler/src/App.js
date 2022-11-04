@@ -1,6 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./components/NavBar.css";
+
 
 import Home from "./routes/Home";
 import SlotAllocation from "./routes/SlotAllocation";

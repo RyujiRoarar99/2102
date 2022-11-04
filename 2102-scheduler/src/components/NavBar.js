@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Hospital from "../assets/hospital.jpg";
+import userProfile from "../assets/userProfile.png";
 
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import "./NavBar.css";
 
 const NavBar = () => {
     return (
@@ -42,6 +44,19 @@ const NavBar = () => {
                             </NavDropdown.Item>
                             <NavDropdown.Item href="/LogRecords">
                                 Log Records
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                        <NavDropdown title={
+                                <img className="thumbnail-image" 
+                                    src={userProfile} 
+                                    alt="user pic"
+                                />}
+                            id="basic-nav-dropdown" className="nav-without-caret" align="end">
+                            <NavDropdown.Item disabled >
+                            Name 
+                            </NavDropdown.Item>
+                            <NavDropdown.Item href="/LogOut">
+                                Log Out
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
