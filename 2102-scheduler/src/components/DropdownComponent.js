@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
-const DropdownField = (props) => {
+const DropdownComponent = (props) => {
     const optionHandler = (event) => {
         console.log(event);
         props.onSelectOption(event);
@@ -22,4 +22,4 @@ const DropdownField = (props) => {
     );
 };
 
-export default DropdownField;
+export default DropdownComponent;

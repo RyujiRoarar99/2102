@@ -3,26 +3,24 @@ import { Link } from "react-router-dom";
 
 import LogScopeForm from "./LogScopeForm";
 import LogWasherForm from "./LogWasherForm";
-import DropdownField from "./DropdownField";
+import DropdownComponent from "./DropdownComponent";
+import BreadcrumbComponent from "./BreadcrumbComponent";
 
 import Container from "react-bootstrap/Container";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const LogRecords = () => {
     const [equipmentSelected, setEquipmentSelected] = useState("Scopes");
 
+    const breadcrumbs = ["Home", "Log Records"];
     const onSelectOptionHandler = (equipment) => {
         setEquipmentSelected(equipment);
     };
 
     return (
         <Container>
-            <Breadcrumb className="mt-5">
-                <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-                <Breadcrumb.Item active>Log Records</Breadcrumb.Item>
-            </Breadcrumb>
+            <BreadcrumbComponent breadcrumbs={breadcrumbs} />
 
             {equipmentSelected === "Scopes" && (
                 <div>
@@ -31,7 +29,7 @@ const LogRecords = () => {
                             <h2>Scope Logger</h2>
                         </Col>
                         <Col>
-                            <DropdownField
+                            <DropdownComponent
                                 className="float-end"
                                 onSelectOption={onSelectOptionHandler}
                             />
@@ -49,7 +47,7 @@ const LogRecords = () => {
                             <h2>Washer Logger</h2>
                         </Col>
                         <Col>
-                            <DropdownField
+                            <DropdownComponent
                                 className="float-end"
                                 onSelectOption={onSelectOptionHandler}
                             />

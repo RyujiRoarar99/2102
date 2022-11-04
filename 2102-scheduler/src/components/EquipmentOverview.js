@@ -1,17 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
-const EquipmentOverview = () => {
+import BreadcrumbComponent from "./BreadcrumbComponent";
+import Container from "react-bootstrap/Container";
+
+const EquipmentOverview = (props) => {
+    const breadcrumbs = ["Home", "Equipment Overview"];
     return (
         <Container>
-            <Breadcrumb className="mt-5">
-                <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-                <Breadcrumb.Item active>Equipment Overview</Breadcrumb.Item>
-            </Breadcrumb>
+            <BreadcrumbComponent breadcrumbs={breadcrumbs} />
         </Container>
     );
 };

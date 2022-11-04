@@ -14,7 +14,7 @@ const NavBar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/">
                     <img
                         src={Hospital}
                         alt="Tan Tock Seng Hospital Logo"
@@ -46,15 +46,19 @@ const NavBar = () => {
                                 Log Records
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <NavDropdown title={
-                                <img className="thumbnail-image" 
-                                    src={userProfile} 
+                        <NavDropdown
+                            title={
+                                <img
+                                    className="thumbnail-image"
+                                    src={userProfile}
                                     alt="user pic"
-                                />}
-                            id="basic-nav-dropdown" className="nav-without-caret" align="end">
-                            <NavDropdown.Item disabled >
-                            Name 
-                            </NavDropdown.Item>
+                                />
+                            }
+                            id="basic-nav-dropdown"
+                            className="nav-without-caret"
+                            align="end"
+                        >
+                            <NavDropdown.Item disabled>Name</NavDropdown.Item>
                             <NavDropdown.Item href="/LogOut">
                                 Log Out
                             </NavDropdown.Item>
