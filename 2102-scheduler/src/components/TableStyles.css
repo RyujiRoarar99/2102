@@ -1,49 +1,50 @@
-.app-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  padding: rem;
+/* .app-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: rem;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
-    margin-left:15%; 
-    margin-right:15%;
-    margin-top:10%;
-    margin-bottom:5%;
-  }
-  
-  th, td {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+
+th,
+td {
     border: 1px solid #000;
     text-align: center;
     padding: 8px;
     font-size: 32px;
     height: 100px;
-  }
-  
-  th {
-    background-color: #fff
-  }
-  
-  td {
-    background-color: #fff
-  }
-  
-  form {
+}
+
+th {
+    background-color: #fff;
+}
+
+td {
+    background-color: #fff;
+}
+
+form {
     display: flex;
     gap: 1px;
-  }
-  
-  form td:last-child {
+}
+
+form td:last-child {
     display: flex;
     justify-content: space-evenly;
-  }
-  
-  form * {
-    font-size: 28px;
-  }
+}
 
-  tbody {
+form * {
+    font-size: 28px;
+}
+
+tbody {
     background-color: rgb(100, 200, 100);
-  }
+} */
