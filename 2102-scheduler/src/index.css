@@ -37,7 +37,7 @@ code {
         monospace;
 }
 
-/* .btn {
+.btn {
     padding: 12px 32px;
     font-size: 1.2rem;
     text-transform: uppercase;
@@ -53,4 +53,4 @@ code {
 
 .btn:hover {
     background: rgba(255, 255, 255, 0.2);
-} */
+}
