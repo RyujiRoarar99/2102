@@ -14,6 +14,7 @@ const LogRecords = () => {
     const [equipmentSelected, setEquipmentSelected] = useState("Scopes");
 
     const breadcrumbs = ["Home", "Log Records"];
+    const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
     const onSelectOptionHandler = (equipment) => {
         setEquipmentSelected(equipment);
     };
@@ -32,6 +33,7 @@ const LogRecords = () => {
                             <DropdownComponent
                                 className="float-end"
                                 onSelectOption={onSelectOptionHandler}
+                                dropdownContents={dropdownContents}
                             />
                         </Col>
                     </Row>
@@ -50,6 +52,7 @@ const LogRecords = () => {
                             <DropdownComponent
                                 className="float-end"
                                 onSelectOption={onSelectOptionHandler}
+                                dropdownContents={dropdownContents}
                             />
                         </Col>
                     </Row>

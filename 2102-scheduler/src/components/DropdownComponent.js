@@ -8,15 +8,31 @@ const DropdownComponent = (props) => {
         console.log(event);
         props.onSelectOption(event);
     };
+
+    const dropdownTitle = props.dropdownContents.filter((i, index) => {
+        if (index === 0) {
+            return i;
+        }
+    });
+
+    const dropdownItems = props.dropdownContents.filter((i, index) => {
+        if (index !== 0) {
+            return i;
+        }
+    });
+
     return (
         <div>
             <DropdownButton
                 id="dropdown-basic-button"
-                title="Select Equipment"
+                title={dropdownTitle[0]}
                 onSelect={optionHandler}
             >
-                <Dropdown.Item eventKey="Scopes">Scopes</Dropdown.Item>
-                <Dropdown.Item eventKey="Washer">Washer</Dropdown.Item>
+                {dropdownItems.map((i) => (
+                    <Dropdown.Item key={i} eventKey={i}>
+                        {i}
+                    </Dropdown.Item>
+                ))}
             </DropdownButton>
         </div>
     );

@@ -24,14 +24,20 @@ const BreadcrumbComponent = (props) => {
     return (
         <Breadcrumb className="mt-5">
             {root_crumb.map((i) => (
-                <Breadcrumb.Item href="/">{i}</Breadcrumb.Item>
+                <Breadcrumb.Item key={i} href="/">
+                    {i}
+                </Breadcrumb.Item>
             ))}
 
             {leaf_crumbs.map((i) => (
-                <Breadcrumb.Item href={"/" + i}>{i}</Breadcrumb.Item>
+                <Breadcrumb.Item key={i} href={"/" + i}>
+                    {i}
+                </Breadcrumb.Item>
             ))}
             {node_crumb.map((i) => (
-                <Breadcrumb.Item active>{i}</Breadcrumb.Item>
+                <Breadcrumb.Item key={i} active>
+                    {i}
+                </Breadcrumb.Item>
             ))}
         </Breadcrumb>
     );
