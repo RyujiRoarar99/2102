@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import LogScopeForm from "./LogScopeForm";
 import LogWasherForm from "./LogWasherForm";
@@ -12,6 +12,17 @@ import Col from "react-bootstrap/Col";
 
 const LogRecords = () => {
     const [equipmentSelected, setEquipmentSelected] = useState("Scopes");
+    const { state } = useLocation();
+    let data = {
+        id: "",
+        modelNo: "",
+        scopeType: "",
+        brand: "",
+        serialNo: "",
+    };
+    try {
+        ({ data } = state);
+    } catch (err) {}
 
     const breadcrumbs = ["Home", "Log Records"];
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
@@ -38,7 +49,7 @@ const LogRecords = () => {
                         </Col>
                     </Row>
 
-                    <LogScopeForm />
+                    <LogScopeForm data={data} />
                 </div>
             )}
 

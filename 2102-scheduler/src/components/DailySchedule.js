@@ -1,10 +1,12 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
 const DailySchedule = (props) => {
+    const navigate = useNavigate();
     const sqlQuery = [
         {
             id: 1,
@@ -25,7 +27,16 @@ const DailySchedule = (props) => {
     const clickHandler = (event) => {
         const rowDataString = event.target.parentNode.parentNode.innerText;
         const rowDataArray = rowDataString.split("\t");
-        alert(`You have selected scope id:${rowDataArray[0]}!`);
+        const rowDataObject = {
+            id: rowDataArray[0],
+            modelNo: rowDataArray[1],
+            scopeType: rowDataArray[2],
+            brand: rowDataArray[3],
+            serialNo: rowDataArray[4],
+        };
+        navigate("/LogRecords", { state: { data: rowDataObject } });
+
+        // alert(`You have selected scope id:${rowDataArray[0]}!`);
         // console.log(rowDataArray);
         // console.log(event);
     };

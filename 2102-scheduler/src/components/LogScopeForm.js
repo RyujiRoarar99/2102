@@ -10,10 +10,10 @@ import Card from "react-bootstrap/Card";
 const LogScopeForm = (props) => {
     const [month, setMonth] = useState("");
     const [date, setDate] = useState("");
-    const [brand, setBrand] = useState("");
-    const [type, setType] = useState("");
-    const [modelNo, setModelNo] = useState("");
-    const [serialNo, setSerialNo] = useState("");
+    const [brand, setBrand] = useState(props.data.brand);
+    const [type, setType] = useState(props.data.scopeType);
+    const [modelNo, setModelNo] = useState(props.data.modelNo);
+    const [serialNo, setSerialNo] = useState(props.data.serialNo);
     const [washedBy, setWashedBy] = useState("");
     const [collectedBy, setCollectedBy] = useState("");
     const [circulatedBy, setCirculatedBy] = useState("");
