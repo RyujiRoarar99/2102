@@ -59,7 +59,7 @@ const NavBar = () => {
                             align="end"
                         >
                             <NavDropdown.Item disabled>Name</NavDropdown.Item>
-                            <NavDropdown.Item href="/LogOut">
+                            <NavDropdown.Item href="/">
                                 Log Out
                             </NavDropdown.Item>
                         </NavDropdown>

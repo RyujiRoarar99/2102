@@ -27,7 +27,7 @@
   justify-content: space-around;
 }
 
-input {
+.input-login {
   border: none;
   background-color: rgb(229, 226, 226);
   height: 4em;
@@ -35,9 +35,9 @@ input {
   border-radius: 0.25em;
   text-align: center;
   padding: 2em;
-}
+} 
 
-input:focus{
+.input-login:focus{
   outline-color: rgb(32, 177, 255);
 }
 
