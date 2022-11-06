@@ -24,7 +24,7 @@ function App() {
         <Route path='/Home' element={<Home/>} />
         <Route path='/SlotAllocation' element={< SlotAllocation/>} />
         <Route path='/EquipmentScheduling' element={< EquipmentScheduling/>} />
-        <Route path='/OverallView' element={< OverallView/>} />
+        <Route path='/EquipmentOverview' element={< EquipmentOverview/>} />
         <Route path='/LogRecords' element={< LogRecords/>} />
       </Routes>
     </>
