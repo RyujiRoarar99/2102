@@ -14,7 +14,7 @@ const NavBar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="/">
+                <Navbar.Brand href="/Home">
                     <img
                         src={Hospital}
                         alt="Tan Tock Seng Hospital Logo"
@@ -29,7 +29,7 @@ const NavBar = () => {
                     className="justify-content-end"
                 >
                     <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link href="/Home">Home</Nav.Link>
                         <NavDropdown title="Scheduling" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/SlotAllocation">
                                 Slot Allocation
