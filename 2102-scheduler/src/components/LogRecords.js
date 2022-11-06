@@ -40,9 +40,8 @@ const LogRecords = () => {
                         <Col>
                             <h2>Scope Logger</h2>
                         </Col>
-                        <Col>
+                        <Col className="float-end">
                             <DropdownComponent
-                                className="float-end"
                                 onSelectOption={onSelectOptionHandler}
                                 dropdownContents={dropdownContents}
                             />
