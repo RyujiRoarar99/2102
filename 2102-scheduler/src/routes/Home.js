@@ -1,15 +1,14 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Table from '../components/Table'
-
+import React from "react";
+import NavBar from "../components/NavBar";
+import DailySchedule from "../components/DailySchedule";
 
 const Home = () => {
     return (
         <div>
-            <Navbar />
-            <Table />
+            <NavBar />
+            <DailySchedule />
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

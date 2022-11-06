@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import BreadcrumbComponent from "./BreadcrumbComponent";
 import Container from "react-bootstrap/Container";
 
-const SlotAllocation = () => {
-    const breadcrumbs = ["Home", "Slot Allocation"];
+const EquipmentOverview = (props) => {
+    const breadcrumbs = ["Home", "Equipment Overview"];
     return (
         <Container>
             <BreadcrumbComponent breadcrumbs={breadcrumbs} />
@@ -13,4 +13,4 @@ const SlotAllocation = () => {
     );
 };
 
-export default SlotAllocation;
+export default EquipmentOverview;

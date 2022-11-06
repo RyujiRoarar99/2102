@@ -1,0 +1,3 @@
+.nav-without-caret::after{
+  display: none !important;
+}
