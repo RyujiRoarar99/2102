@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Axios from 'axios';
 import DropdownComponent from "./DropdownComponent";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
@@ -7,33 +7,12 @@ import Col from "react-bootstrap/Col";
 
 const ScopesEquipmentOverview = (props) => {
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
-
-    const scopeQuery = [
-        {
-            id: 1,
-            modelNo: "ModelNo1",
-            scopeType: "ScopeType1",
-            brand: "Brand1",
-            serialNo: "SerialNo1",
-            status: "Available",
-            remarks: "",
-            samplingFrequency: 6,
-            lastSampledDate: "",
-            nextSampleDeadline: "",
-        },
-        {
-            id: 2,
-            modelNo: "ModelNo2",
-            scopeType: "ScopeType2",
-            brand: "Brand2",
-            serialNo: "SerialNo2",
-            status: "Available",
-            remarks: "",
-            samplingFrequency: 6,
-            lastSampledDate: "",
-            nextSampleDeadline: "",
-        },
-    ];
+    const [scopeData, setScopeData] = useState([]);
+    Axios.post("http://localhost:3001/EquipmentOverviewScope").then((response) => {
+      if(response.data.length) {
+        setScopeData(response.data);
+      }
+    });
 
     return (
         <div>
@@ -58,9 +37,9 @@ const ScopesEquipmentOverview = (props) => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th className="w-auto">Model Number</th>
+                            <th className="w-auto">Brand</th>
                             <th>Scope Type</th>
-                            <th>Brand</th>
+                            <th>Model Number</th>
                             <th>Serial Number</th>
                             <th>Status</th>
                             <th>Remarks</th>
@@ -70,18 +49,18 @@ const ScopesEquipmentOverview = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {scopeQuery.map((tuple, index) => (
+                        {scopeData.map((tuple, index) => (
                             <tr id={tuple.serialNo}>
                                 <td className="">{index + 1}</td>
-                                <td className="">{tuple.modelNo}</td>
-                                <td className="">{tuple.scopeType}</td>
                                 <td className="">{tuple.brand}</td>
-                                <td className="">{tuple.serialNo}</td>
+                                <td className="">What</td>
+                                <td className="">{tuple.model_no}</td>
+                                <td className="">{tuple.serial_no}</td>
                                 <td className="">{tuple.status}</td>
                                 <td className="">{tuple.remarks}</td>
-                                <td className="">{tuple.samplingFrequency}</td>
-                                <td className="">{tuple.lastSampledDate}</td>
-                                <td className="">{tuple.nextSampleDeadline}</td>
+                                <td className="">{tuple.sampling_frequency}</td>
+                                <td className="">{tuple.last_sampling_date}</td>
+                                <td className="">{tuple.next_required_sampling}</td>
                             </tr>
                         ))}
                     </tbody>
