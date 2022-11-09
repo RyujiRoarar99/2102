@@ -14,7 +14,7 @@ import Alert from "sweetalert2";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./SlotAllocationStyles.css";
+import "./SlotAllocation.css";
 
 const breadcrumbs = ["Home", "Slot Allocation"];
 
@@ -111,7 +111,7 @@ class SlotAllocation extends Component {
               id="external-events"
               style={{
                 padding: "10px",
-                width: "80%",
+                width: "15%",
                 height: "auto",
                 maxHeight: "-webkit-fill-available"
               }}
