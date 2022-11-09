@@ -5,6 +5,7 @@ import BreadcrumbComponent from "./BreadcrumbComponent";
 import Container from "react-bootstrap/Container";
 
 import { Col, Row } from "reactstrap";
+import { Button } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -46,31 +47,35 @@ class SlotAllocation extends Component {
                 id="external-events"
                 style={{
                   padding: "10px",
-                  width: "auto",
+                  width: "200px",
                   height: "500px",
-                  maxHeight: "-webkit-fill-available",
+                 
                 }}
               >
                 <p align="center">
-                  <strong> Events</strong>
+                  <strong> Number of Slots</strong>
                 </p>
                 <div className="App container">
                   <DropdownButton
                     alignRight
-                    title="Dropdown right"
+                    title={this.handleSelect}
                     id="dropdown-menu-align-right"
                     onSelect={this.handleSelect}
                   >
-                    <Dropdown.Item eventKey="option-1">option-1</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-2">option-2</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-3">option 3</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item eventKey="some link">
-                      some link
-                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="option-1">1</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-2">2</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-3">3</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-1">4</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-2">5</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-3">6</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-1">7</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-2">8</Dropdown.Item>
+                    <Dropdown.Item eventKey="option-3">9</Dropdown.Item>
                   </DropdownButton>
                   
+                  <Button className="m-t-5" variant="primary" type="submit">Confrim</Button>
                 </div>
+                
               </div>
             </Col>
 
