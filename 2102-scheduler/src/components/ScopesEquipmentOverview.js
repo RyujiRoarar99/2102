@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Axios from 'axios';
 import DropdownComponent from "./DropdownComponent";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -16,6 +16,14 @@ const ScopesEquipmentOverview = (props) => {
     const [selectedSample, setSelectedSample] = useState([]);
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
+
+    //get scope data from database
+    const [scopeData, setScopeData] = useState([]);
+    Axios.post("http://localhost:3001/EquipmentOverviewScope").then((response) => {
+      if(response.data.length) {
+        setScopeData(response.data);
+      }
+    });
 
     const handleClose = () => setShow(false);
     const handleShow = (event) => {
@@ -49,34 +57,6 @@ const ScopesEquipmentOverview = (props) => {
 
         setShow2(true);
     };
-
-    const scopeQuery = [
-        {
-            id: 1,
-            modelNo: "ModelNo1",
-            scopeType: "ScopeType1",
-            brand: "Brand1",
-            serialNo: "SerialNo1",
-            status: "Available",
-            remarks: "",
-            samplingFrequency: 6,
-            lastSampledDate: "",
-            nextSampleDeadline: "",
-            loggedBy: "",
-        },
-        {
-            id: 2,
-            modelNo: "ModelNo2",
-            scopeType: "ScopeType2",
-            brand: "Brand2",
-            serialNo: "SerialNo2",
-            status: "Available",
-            remarks: "",
-            samplingFrequency: 6,
-            lastSampledDate: "",
-            nextSampleDeadline: "",
-        },
-    ];
 
     const scopeSamplingInformation = [
         {
@@ -307,7 +287,7 @@ const ScopesEquipmentOverview = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {scopeQuery.map((tuple, index) => (
+                        {scopeData.map((tuple, index) => (
                             <tr id={tuple.serialNo}>
                                 <td className="text-center">
                                     <Button
@@ -320,15 +300,15 @@ const ScopesEquipmentOverview = (props) => {
                                     />
                                 </td>
                                 <td className="">{index + 1}</td>
-                                <td className="">{tuple.modelNo}</td>
-                                <td className="">{tuple.scopeType}</td>
+                                <td className="">{tuple.model_no}</td>
+                                <td className="">{tuple.scopetype}</td>
                                 <td className="">{tuple.brand}</td>
-                                <td className="">{tuple.serialNo}</td>
+                                <td className="">{tuple.serial_no}</td>
                                 <td className="">{tuple.status}</td>
                                 <td className="">{tuple.remarks}</td>
-                                <td className="">{tuple.samplingFrequency}</td>
-                                <td className="">{tuple.lastSampledDate}</td>
-                                <td className="">{tuple.nextSampleDeadline}</td>
+                                <td className="">{tuple.sampling_frequency}</td>
+                                <td className="">{tuple.last_sampling_date}</td>
+                                <td className="">{tuple.next_required_sampling}</td>
                             </tr>
                         ))}
                     </tbody>
