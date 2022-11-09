@@ -11,14 +11,24 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const LogRecords = () => {
-    const [equipmentSelected, setEquipmentSelected] = useState("Scopes");
     const { state } = useLocation();
+    let stateEquipment = "Scopes";
+    try {
+        stateEquipment = state.equipment;
+    } catch (err) {}
+
+    console.log(stateEquipment);
+
+    const [equipmentSelected, setEquipmentSelected] = useState(stateEquipment);
+
     let data = {
         id: "",
         modelNo: "",
         scopeType: "",
         brand: "",
         serialNo: "",
+        aerSerialNo: "",
+        aerModelNo: "",
     };
     try {
         ({ data } = state);
@@ -40,9 +50,8 @@ const LogRecords = () => {
                         <Col>
                             <h2>Scope Logger</h2>
                         </Col>
-                        <Col>
+                        <Col className="float-end">
                             <DropdownComponent
-                                className="float-end"
                                 onSelectOption={onSelectOptionHandler}
                                 dropdownContents={dropdownContents}
                             />
@@ -67,7 +76,7 @@ const LogRecords = () => {
                             />
                         </Col>
                     </Row>
-                    <LogWasherForm />
+                    <LogWasherForm data={data} />
                 </div>
             )}
         </Container>

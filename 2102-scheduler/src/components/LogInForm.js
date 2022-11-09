@@ -1,41 +1,46 @@
-import React, {useState} from "react";
-import {Link} from 'react-router-dom'
+import React, { useState } from "react";
+
 import Hospital from "../assets/hospital.jpg";
-import "./LogInForm.css";
+
+
+import { Form, Row, Col, Card, Button, Container } from "react-bootstrap";
 
 const LogInForm = () => {
-
-  // **to implement sessions
-  // ***using hook for invalid information login 
-  // const [popupStyle, showPopup] = useState("hide")
-
-  // const popup = () => {
-  //   showPopup("login-popup")
-  //   setTimeout(() => showPopup("hide"), 3000)
-  // }
-
-
   return (
-    <div className="page-login">
-      <img src={Hospital} className="logo-login" alt="" />
-      
-      <div className="cover-login">
-        <h1 className="text-login">Login</h1>
-        
-        <input className="input-login" type="text" placeholder="ID"></input>
-        <input className="input-login" type="text" placeholder="Password"></input>
-        
-        <div className="login-page-buttons">
-          <div className="login-btn">
-            <Link to='/Home'>Login</Link>
-          </div>
-          <div className="register-btn">
-            <Link to='/RegisterPage'>Register</Link>
-          </div>
-        </div>
-      
-      </div>
-    </div>
+    <Container className="d-flex justify-content-center">
+      <Col className="col-sm-3">
+        <Row className="d-flex justify-content-between">
+          <Container className="d-flex justify-content-center">
+            <img src={Hospital} alt="" />
+          </Container>
+        </Row>
+
+        <Card body>
+          <Form className="rounded p-4 p-sm-3">
+            <Row className="mb-3">
+              <Form.Group controlId="formID">
+                <Form.Label>ID No.</Form.Label>
+                <Form.Control type="id" placeholder="Enter ID" />
+              </Form.Group>
+            </Row>
+
+            <Row className="mb-3">
+              <Form.Group controlId="formPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter Password" />
+              </Form.Group>
+            </Row>
+
+            <Button href="/Home" variant="primary" type="submit">
+              Log In
+            </Button>
+            <Button href="/RegisterPage" variant="white" type="submit">
+              Register Account
+            </Button>
+          </Form>
+        </Card>
+      </Col>
+    </Container>
   );
 };
 

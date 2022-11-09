@@ -10,8 +10,8 @@ import Card from "react-bootstrap/Card";
 const LogWasherForm = (props) => {
     const [month, setMonth] = useState("");
     const [date, setDate] = useState("");
-    const [modelNo, setModelNo] = useState("");
-    const [serialNo, setSerialNo] = useState("");
+    const [modelNo, setModelNo] = useState(props.data.aerModelNo);
+    const [serialNo, setSerialNo] = useState(props.data.aerSerialNo);
     const [collectedBy, setCollectedBy] = useState("");
     const [circulatedBy, setCirculatedBy] = useState("");
 
@@ -159,21 +159,18 @@ const LogWasherForm = (props) => {
                     <Col>
                         <Button
                             className="float-end"
+                            variant="success"
+                            type="submit"
+                        >
+                            Submit
+                        </Button>
+                        <Button
+                            className="float-end me-2"
                             variant="danger"
                             type="button"
                             onClick={resetHandler}
                         >
                             Reset
-                        </Button>
-                    </Col>
-
-                    <Col>
-                        <Button
-                            className="float-end"
-                            variant="success"
-                            type="submit"
-                        >
-                            Submit
                         </Button>
                     </Col>
                 </Row>

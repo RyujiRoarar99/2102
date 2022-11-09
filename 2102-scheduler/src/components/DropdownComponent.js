@@ -5,7 +5,6 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 
 const DropdownComponent = (props) => {
     const optionHandler = (event) => {
-        console.log(event);
         props.onSelectOption(event);
     };
 

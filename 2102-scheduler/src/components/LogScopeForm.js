@@ -207,16 +207,6 @@ const LogScopeForm = (props) => {
                             Scan Barcode
                         </Button>
                     </Col>
-                    <Col>
-                        <Button
-                            className="float-end"
-                            variant="danger"
-                            type="button"
-                            onClick={resetHandler}
-                        >
-                            Reset
-                        </Button>
-                    </Col>
 
                     <Col>
                         <Button
@@ -225,6 +215,14 @@ const LogScopeForm = (props) => {
                             type="submit"
                         >
                             Submit
+                        </Button>
+                        <Button
+                            className="float-end me-2"
+                            variant="danger"
+                            type="button"
+                            onClick={resetHandler}
+                        >
+                            Reset
                         </Button>
                     </Col>
                 </Row>

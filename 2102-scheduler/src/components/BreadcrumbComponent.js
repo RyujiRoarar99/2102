@@ -24,7 +24,7 @@ const BreadcrumbComponent = (props) => {
     return (
         <Breadcrumb className="mt-5">
             {root_crumb.map((i) => (
-                <Breadcrumb.Item key={i} href="/">
+                <Breadcrumb.Item key={i} href="/Home">
                     {i}
                 </Breadcrumb.Item>
             ))}
