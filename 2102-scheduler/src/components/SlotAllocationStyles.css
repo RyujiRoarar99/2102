@@ -1,0 +1,8 @@
+.SlotAllocation {
+    font-family: sans-serif;
+    text-align: center;
+  }  
+  #external-events .fc-event {
+    margin: 1em 0;
+    cursor: move;
+  }
