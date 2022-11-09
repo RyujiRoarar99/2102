@@ -21,19 +21,18 @@ const DropdownComponent = (props) => {
     });
 
     return (
-        <div>
-            <DropdownButton
-                id="dropdown-basic-button"
-                title={dropdownTitle[0]}
-                onSelect={optionHandler}
-            >
-                {dropdownItems.map((i) => (
-                    <Dropdown.Item key={i} eventKey={i}>
-                        {i}
-                    </Dropdown.Item>
-                ))}
-            </DropdownButton>
-        </div>
+        <DropdownButton
+            id="dropdown-basic-button"
+            title={dropdownTitle[0]}
+            onSelect={optionHandler}
+            className="float-end"
+        >
+            {dropdownItems.map((i) => (
+                <Dropdown.Item key={i} eventKey={i}>
+                    {i}
+                </Dropdown.Item>
+            ))}
+        </DropdownButton>
     );
 };
 

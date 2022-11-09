@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from 'axios';
+import Axios from "axios";
 import DropdownComponent from "./DropdownComponent";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -19,11 +19,19 @@ const ScopesEquipmentOverview = (props) => {
 
     //get scope data from database
     const [scopeData, setScopeData] = useState([]);
-    Axios.post("http://localhost:3001/EquipmentOverviewScope").then((response) => {
-      if(response.data.length) {
-        setScopeData(response.data);
-      }
-    });
+    Axios.post("http://localhost:3001/EquipmentOverviewScope").then(
+        (response) => {
+            if (response.data.length) {
+                setScopeData(response.data);
+            }
+        }
+    );
+
+    //get value from Serial No filter
+    const [filteredSerialNo, setFilteredSerialNo] = useState("");
+    const serialNoChangeHandler = (event) => {
+        setFilteredSerialNo(event.target.value);
+    };
 
     const handleClose = () => setShow(false);
     const handleShow = (event) => {
@@ -254,10 +262,23 @@ const ScopesEquipmentOverview = (props) => {
             </Modal>
 
             <Row>
-                <Col>
+                <Col lg={8}>
                     <h2>Scopes</h2>
                 </Col>
-                <Col>
+                <Col lg={2}>
+                    <FloatingLabel
+                        controlId="floatingSerialNo"
+                        label="Serial No."
+                    >
+                        <Form.Control
+                            type="text"
+                            placeholder="serial no"
+                            value={filteredSerialNo}
+                            onChange={serialNoChangeHandler}
+                        />
+                    </FloatingLabel>
+                </Col>
+                <Col lg={2}>
                     <DropdownComponent
                         onSelectOption={props.selectEquipment}
                         dropdownContents={dropdownContents}
@@ -308,7 +329,9 @@ const ScopesEquipmentOverview = (props) => {
                                 <td className="">{tuple.remarks}</td>
                                 <td className="">{tuple.sampling_frequency}</td>
                                 <td className="">{tuple.last_sampling_date}</td>
-                                <td className="">{tuple.next_required_sampling}</td>
+                                <td className="">
+                                    {tuple.next_required_sampling}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

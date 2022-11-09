@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Axios from 'axios';
+import Axios from "axios";
 import DropdownComponent from "./DropdownComponent";
+
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,11 +9,13 @@ import Col from "react-bootstrap/Col";
 const WasherEquipmentOverview = (props) => {
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
     const [washerData, setWasherData] = useState([]);
-    Axios.post("http://localhost:3001/EquipmentOverviewWasher").then((response) => {
-      if(response.data.length) {
-        setWasherData(response.data);
-      }
-    });
+    Axios.post("http://localhost:3001/EquipmentOverviewWasher").then(
+        (response) => {
+            if (response.data.length) {
+                setWasherData(response.data);
+            }
+        }
+    );
 
     return (
         <div>
@@ -56,7 +59,9 @@ const WasherEquipmentOverview = (props) => {
                                 <td className="">{tuple.remarks}</td>
                                 <td className="">{tuple.sampling_frequency}</td>
                                 <td className="">{tuple.last_sampling_date}</td>
-                                <td className="">{tuple.next_required_sampling}</td>
+                                <td className="">
+                                    {tuple.next_required_sampling}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
