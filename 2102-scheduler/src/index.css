@@ -37,20 +37,17 @@ code {
         monospace;
 }
 
-/* .btn {
-    padding: 12px 32px;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    background: transparent;
-    color: #000;
-    border: 1px solid #000;
-    cursor: pointer;
-}
-
-.btn-light {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-} */
+#external-events {
+    position: absolute;
+    z-index: 2;
+  
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    overflow-y: scroll;
+  }
+  
+  #external-events .fc-event {
+    margin: 1em 0;
+    cursor: move;
+  }
