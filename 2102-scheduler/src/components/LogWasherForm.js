@@ -8,16 +8,16 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
 const LogWasherForm = (props) => {
-    const [month, setMonth] = useState("");
+    // const [month, setMonth] = useState("");
     const [date, setDate] = useState("");
     const [modelNo, setModelNo] = useState(props.data.aerModelNo);
     const [serialNo, setSerialNo] = useState(props.data.aerSerialNo);
     const [collectedBy, setCollectedBy] = useState("");
     const [circulatedBy, setCirculatedBy] = useState("");
 
-    const monthChangeHandler = (event) => {
-        setMonth(event.target.value);
-    };
+    // const monthChangeHandler = (event) => {
+    //     setMonth(event.target.value);
+    // };
 
     const dateChangeHandler = (event) => {
         setDate(event.target.value);
@@ -43,7 +43,7 @@ const LogWasherForm = (props) => {
     };
 
     const resetHandler = () => {
-        setMonth("");
+        // setMonth("");
         setDate("");
         setModelNo("");
         setSerialNo("");
@@ -55,8 +55,8 @@ const LogWasherForm = (props) => {
         <Card body>
             <Form>
                 <Form.Label>Collection Period</Form.Label>
-                <Row className="mb-3">
-                    <Col>
+                <Row className="mb-4">
+                    {/* <Col>
                         <FloatingLabel
                             controlId="floatingInput"
                             label="Month of Collection"
@@ -68,8 +68,8 @@ const LogWasherForm = (props) => {
                                 value={month}
                             />
                         </FloatingLabel>
-                    </Col>
-                    <Col>
+                    </Col> */}
+                    <Col xs={12} lg={6}>
                         <FloatingLabel
                             controlId="floatingInput"
                             label="Date of Collection"
@@ -116,7 +116,7 @@ const LogWasherForm = (props) => {
 
                 <Form.Label>Personnel Performed</Form.Label>
 
-                <Row className="mb-3">
+                <Row className="mb-4">
                     <Col>
                         <FloatingLabel
                             controlId="floatingInputGrid"
@@ -138,6 +138,65 @@ const LogWasherForm = (props) => {
                             <Form.Control
                                 type="text"
                                 placeholder="ciruclated by"
+                                onChange={circulatedByChangeHandler}
+                                value={circulatedBy}
+                            />
+                        </FloatingLabel>
+                    </Col>
+                </Row>
+
+                <Form.Label>Fluid Results</Form.Label>
+                <Row className="mb-3">
+                    <Col>
+                        <FloatingLabel
+                            controlId="floatingInput"
+                            label="Date of Result"
+                        >
+                            <Form.Control
+                                type="date"
+                                placeholder="date of result"
+                                onChange={dateChangeHandler} // CHANGE
+                                value={date}
+                            />
+                        </FloatingLabel>
+                    </Col>
+                    <Col>
+                        <FloatingLabel
+                            controlId="floatingInput"
+                            label="Fluid Result"
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="type"
+                                onChange={circulatedByChangeHandler}
+                                value={circulatedBy}
+                            />
+                        </FloatingLabel>
+                    </Col>
+                </Row>
+
+                <Row className="mb-4">
+                    <Col>
+                        <FloatingLabel
+                            controlId="floatingInput"
+                            label="Analysis"
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="analysis"
+                                onChange={circulatedByChangeHandler}
+                                value={circulatedBy}
+                            />
+                        </FloatingLabel>
+                    </Col>
+                    <Col>
+                        <FloatingLabel
+                            controlId="floatingInput"
+                            label="Action Taken"
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="action taken"
                                 onChange={circulatedByChangeHandler}
                                 value={circulatedBy}
                             />
