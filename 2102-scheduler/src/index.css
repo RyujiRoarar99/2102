@@ -37,6 +37,25 @@ code {
         monospace;
 }
 
+#external-events {
+    position: absolute;
+    z-index: 2;
+
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    overflow-y: scroll;
+}
+
+#external-events .fc-event {
+    margin: 1em 0;
+    cursor: move;
+}
+
+th {
+    white-space: nowrap;
+}
+
 /* .btn {
     padding: 12px 32px;
     font-size: 1.2rem;
