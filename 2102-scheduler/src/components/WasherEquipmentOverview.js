@@ -16,20 +16,25 @@ const WasherEquipmentOverview = (props) => {
     const [selectedSample, setSelectedSample] = useState([]);
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
-
-    //get scope data from database
-    const [washerData, setWasherData] = useState([]);
-    Axios.post("http://localhost:3001/EquipmentOverviewWasher").then(
-        (response) => {
-            if (response.data.length) {
-                setWasherData(response.data);
-            }
-        }
-    );
-
     //get value from Serial No filter
     const [filteredSerialNo, setFilteredSerialNo] = useState("");
+    //get scope data from database
+    const [washerData, setWasherData] = useState([]);
+    Axios.post("http://localhost:3001/EquipmentOverviewWasher", {
+        filteredSerialNo:filteredSerialNo
+        }).then((response) => {
+        if(response.data.length) {
+            console.log(response.data);
+            setWasherData(response.data);
+        }
+        else {
+            setWasherData([]);
+        }
+    });
+
+    //action when a value gets typed in
     const serialNoChangeHandler = (event) => {
+        event.preventDefault();
         setFilteredSerialNo(event.target.value);
     };
 

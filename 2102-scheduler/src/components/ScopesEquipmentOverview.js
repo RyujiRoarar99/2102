@@ -17,19 +17,27 @@ const ScopesEquipmentOverview = (props) => {
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
 
-    //get scope data from database
-    const [scopeData, setScopeData] = useState([]);
-    Axios.post("http://localhost:3001/EquipmentOverviewScope").then(
-        (response) => {
-            if (response.data.length) {
-                setScopeData(response.data);
-            }
-        }
-    );
-
     //get value from Serial No filter
     const [filteredSerialNo, setFilteredSerialNo] = useState("");
+    //get scope data from database
+    const [scopeData, setScopeData] = useState([]);
+
+    //does subsequent checks for changing data
+    Axios.post("http://localhost:3001/EquipmentOverviewScope", {
+        filteredSerialNo:filteredSerialNo
+        }).then((response) => {
+        if(response.data.length) {
+            console.log(response.data);
+            setScopeData(response.data);
+        }
+        else {
+            setScopeData([]);
+        }
+    });
+
+    //action when a value gets typed in
     const serialNoChangeHandler = (event) => {
+        event.preventDefault();
         setFilteredSerialNo(event.target.value);
     };
 
@@ -68,7 +76,7 @@ const ScopesEquipmentOverview = (props) => {
 
     const scopeSamplingInformation = [
         {
-            serialNo: "SerialNo1",
+            serialNo: "vqrhm1pzwy9r",
             modelNo: "ModelNo1",
             date: "12-12-2022",
             washedBy: "A",

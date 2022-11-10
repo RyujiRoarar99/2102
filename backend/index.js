@@ -32,10 +32,31 @@ app.post('/login',(req,res) => {
     );
 })
 
-//For viewing scope overview in the system
-app.post('/EquipmentOverviewScope',(req, res) => {
+//For viewing washer overview in the system
+app.post('/EquipmentOverviewWasher',(req, res) => {
+    const filteredSerialNo = req.body.filteredSerialNo;
     db.query(
-        "SELECT * FROM scope",
+        "SELECT * FROM washer WHERE serial_no LIKE concat(?, '%')",
+        [filteredSerialNo],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
+//For viewing washer overview in the system
+app.post('/EquipmentOverviewScope',(req, res) => {
+    const filteredSerialNo = req.body.filteredSerialNo;
+    db.query(
+        "SELECT * FROM scope WHERE serial_no LIKE concat(?, '%')",
+        [filteredSerialNo],
         (err, result) => {
             if(err) {
                 console.log(err);
@@ -51,9 +72,9 @@ app.post('/EquipmentOverviewScope',(req, res) => {
 })
 
 //For viewing washer overview in the system
-app.post('/EquipmentOverviewWasher',(req, res) => {
+app.post('/EquipmentOverviewWasherFiltered',(req, res) => {
     db.query(
-        "SELECT * FROM washer",
+        "SELECT * FROM washer WHERE serial_no LIKE concat(?, '%')",
         (err, result) => {
             if(err) {
                 console.log(err);
