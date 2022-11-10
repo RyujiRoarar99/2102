@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import DropdownComponent from "./DropdownComponent";
-
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const WasherEquipmentOverview = (props) => {
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
+    const [selectedWasher, setSelectedWasher] = useState([]);
+    const [WasherSamples, setWasherSamples] = useState([]);
+    const [selectedSample, setSelectedSample] = useState([]);
+    const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+
+    //get scope data from database
     const [washerData, setWasherData] = useState([]);
     Axios.post("http://localhost:3001/EquipmentOverviewWasher").then(
         (response) => {
@@ -17,13 +27,241 @@ const WasherEquipmentOverview = (props) => {
         }
     );
 
+    //get value from Serial No filter
+    const [filteredSerialNo, setFilteredSerialNo] = useState("");
+    const serialNoChangeHandler = (event) => {
+        setFilteredSerialNo(event.target.value);
+    };
+
+    const handleClose = () => setShow(false);
+    const handleShow = (event) => {
+        const rowDataArray =
+            event.target.parentNode.parentNode.innerText.split("\t");
+        const washerSerialNo = rowDataArray[3];
+        const washerModelNo = rowDataArray[2];
+        const washer = [washerSerialNo, washerModelNo];
+        setSelectedWasher(washer);
+
+        const checkSample = (sample) => {
+            return sample.serialNo === washerSerialNo;
+        };
+        setWasherSamples(WasherSamplingInformation.filter(checkSample));
+
+        setShow(true);
+    };
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = (event) => {
+        const rowDataArray =
+            event.target.parentNode.parentNode.innerText.split("\t");
+
+        const date = rowDataArray[2];
+        const collectedBy = rowDataArray[3];
+        const circulatedBy = rowDataArray[4];
+        const sampleInformation = [date, collectedBy, circulatedBy];
+        setSelectedSample(sampleInformation);
+
+        setShow2(true);
+    };
+
+    const WasherSamplingInformation = [
+        {
+            serialNo: "SerialNo1",
+            modelNo: "ModelNo1",
+            date: "12-12-2022",
+            washedBy: "A",
+            collectedBy: "B",
+            circulatedBy: "C",
+            loggedBy: "A",
+        },
+        {
+            serialNo: "SerialNo1",
+            modelNo: "ModelNo1",
+            date: "2-2-2022",
+            washedBy: "X",
+            collectedBy: "Y",
+            circulatedBy: "Z",
+            loggedBy: "X",
+        },
+    ];
+
     return (
         <div>
+            <Modal show={show} onHide={handleClose} size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>{`${selectedWasher[0]} [${selectedWasher[1]}]`}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Table
+                        className="mt-2"
+                        id="Washers"
+                        responsive
+                        bordered
+                        size="md"
+                        striped
+                    >
+                        <thead>
+                            <tr>
+                                <th className="text-center">Actions</th>
+                                <th>#</th>
+                                <th className="w-auto">Date</th>
+                                <th>Collected By</th>
+                                <th>Circulated By</th>
+                                <th>Logged By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {WasherSamples.map((tuple, index) => (
+                                <tr id={tuple.serialNo}>
+                                    <td className="text-center">
+                                        <Button
+                                            variant="success"
+                                            as="input"
+                                            type="button"
+                                            value="Edit"
+                                            onClick={handleShow2}
+                                            size="sm"
+                                            className=""
+                                        />
+                                    </td>
+                                    <td className="col-1">{index + 1}</td>
+                                    <td className="">{tuple.date}</td>
+                                    <td className="">{tuple.collectedBy}</td>
+                                    <td className="">{tuple.circulatedBy}</td>
+                                    <td className="">{tuple.loggedBy}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={show2} onHide={handleClose2}>
+                <Modal.Header closeButton>
+                    <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Label>Collection Period</Form.Label>
+                        <Row className="mb-3">
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInput"
+                                    label="Month of Collection"
+                                >
+                                    <Form.Control
+                                        type="month"
+                                        placeholder="month of collection"
+                                        disabled
+                                        value={null}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInput"
+                                    label="Date of Collection"
+                                >
+                                    <Form.Control
+                                        type="date"
+                                        placeholder="date of collection"
+                                        disabled
+                                        value={null}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+
+                        <Form.Label>Washer Details</Form.Label>
+                        <Row className="mb-3">
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInputGrid"
+                                    label="Model No."
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="model no."
+                                        onChange={null}
+                                        value={selectedWasher[1]}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInputGrid"
+                                    label="Serial No."
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="serial no."
+                                        onChange={null}
+                                        value={selectedWasher[0]}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+
+                        <Form.Label>Personnel Performed</Form.Label>
+
+                        <Row className="mb-3">
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInputGrid"
+                                    label="Collected By"
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="collected by"
+                                        onChange={null}
+                                        value={selectedSample[2]}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInputGrid"
+                                    label="Circulated by"
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="ciruclated by"
+                                        onChange={null}
+                                        value={selectedSample[3]}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose2}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
             <Row>
-                <Col>
-                    <h2>Washer</h2>
+                <Col lg={8}>
+                    <h2>Washers</h2>
                 </Col>
-                <Col>
+                <Col lg={2}>
+                    <FloatingLabel
+                        controlId="floatingSerialNo"
+                        label="Serial No."
+                    >
+                        <Form.Control
+                            type="text"
+                            placeholder="serial no"
+                            value={filteredSerialNo}
+                            onChange={serialNoChangeHandler}
+                        />
+                    </FloatingLabel>
+                </Col>
+                <Col lg={2}>
                     <DropdownComponent
                         onSelectOption={props.selectEquipment}
                         dropdownContents={dropdownContents}
@@ -31,7 +269,7 @@ const WasherEquipmentOverview = (props) => {
                 </Col>
                 <Table
                     className="mt-3"
-                    id="Scopes"
+                    id="Washers"
                     responsive
                     bordered
                     size="md"
@@ -39,8 +277,9 @@ const WasherEquipmentOverview = (props) => {
                 >
                     <thead>
                         <tr>
+                            <th className="text-center">Actions</th>
                             <th>#</th>
-                            <th className="w-auto">Model Number</th>
+                            <th>Model Number</th>
                             <th>Serial Number</th>
                             <th>Status</th>
                             <th>Remarks</th>
@@ -52,6 +291,16 @@ const WasherEquipmentOverview = (props) => {
                     <tbody>
                         {washerData.map((tuple, index) => (
                             <tr id={tuple.serialNo}>
+                                <td className="text-center">
+                                    <Button
+                                        variant="primary"
+                                        as="input"
+                                        type="button"
+                                        value="View Past Records"
+                                        onClick={handleShow}
+                                        size="sm"
+                                    />
+                                </td>
                                 <td className="">{index + 1}</td>
                                 <td className="">{tuple.model_no}</td>
                                 <td className="">{tuple.serial_no}</td>
@@ -59,9 +308,7 @@ const WasherEquipmentOverview = (props) => {
                                 <td className="">{tuple.remarks}</td>
                                 <td className="">{tuple.sampling_frequency}</td>
                                 <td className="">{tuple.last_sampling_date}</td>
-                                <td className="">
-                                    {tuple.next_required_sampling}
-                                </td>
+                                <td className="">{tuple.next_required_sampling}</td>
                             </tr>
                         ))}
                     </tbody>
