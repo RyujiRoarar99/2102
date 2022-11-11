@@ -48,17 +48,17 @@ class EquipmentScheduling extends Component {
           { title: "Event 7", id: "7" },
           { title: "Event 8", id: "8" },
           { title: "Event 9", id: "9" },
-          { title: "Event 5", id: "5" },
-          { title: "Event 1", id: "1" },
-          { title: "Event 2", id: "2" },
-          { title: "Event 3", id: "3" },
-          { title: "Event 4", id: "4" },
-          { title: "Event 5", id: "5" },
-          { title: "Event 6", id: "6" },
-          { title: "Event 7", id: "7" },
-          { title: "Event 8", id: "8" },
-          { title: "Event 9", id: "9" },
-          { title: "Event 5", id: "5" },
+          { title: "Event 10", id: "10" },
+          { title: "Event 11", id: "11" },
+          { title: "Event 12", id: "12" },
+          { title: "Event 13", id: "13" },
+          { title: "Event 14", id: "14" },
+          { title: "Event 15", id: "15" },
+          { title: "Event 16", id: "16" },
+          { title: "Event 17", id: "17" },
+          { title: "Event 18", id: "18" },
+          { title: "Event 19", id: "19" },
+          { title: "Event 20", id: "20" },
         ]
       };
     
@@ -126,7 +126,7 @@ class EquipmentScheduling extends Component {
                   id="external-events"
                   style={{
                     padding: "10px",
-                    width: "15%",
+                    width: "10%",
                     height: "50%",
                     maxHeight: "-webkit-fill-available"
                   }}
