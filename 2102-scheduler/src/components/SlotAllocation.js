@@ -5,8 +5,8 @@ import BreadcrumbComponent from "./BreadcrumbComponent";
 import Container from "react-bootstrap/Container";
 
 import { Col, Row } from "reactstrap";
-import { Button } from "react-bootstrap";
-import FullCalendar from "@fullcalendar/react";
+import { Button , Form } from "react-bootstrap";
+import FullCalendar, { flexibleCompare } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
@@ -16,8 +16,8 @@ import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const breadcrumbs = ["Home", "Slot Allocation"];
 
@@ -32,7 +32,7 @@ class SlotAllocation extends Component {
 
   handleSelect(e) {
     console.log(e);
-    this.setState({value: e});
+    this.setState({ value: e });
   }
 
   render() {
@@ -46,35 +46,31 @@ class SlotAllocation extends Component {
                 id="external-events"
                 style={{
                   padding: "10px",
-                  width: "200px",
-                  height: "500px",
-                 
+                  width: "10%",
+                  height: "15%",
                 }}
               >
                 <p align="center">
                   <strong> Number of Slots</strong>
                 </p>
                 <div className="App container">
-                  <DropdownButton
-                    alignRight
-                    title={this.handleSelect}
-                    id="dropdown-menu-align-right"
-                    onSelect={this.handleSelect}
-                  >
-                    <Dropdown.Item eventKey="option-1">1</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-2">2</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-3">3</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-1">4</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-2">5</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-3">6</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-1">7</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-2">8</Dropdown.Item>
-                    <Dropdown.Item eventKey="option-3">9</Dropdown.Item>
-                  </DropdownButton>
-                  
-                  <Button className="m-t-5" variant="primary" type="submit">Confrim</Button>
+                  <Form.Select style={{
+                    marginBottom: "20px"
+                  }}>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                  </Form.Select>
+
+                  <Button className="m-t-5" variant="primary" type="submit">
+                    Confrim
+                  </Button>
                 </div>
-                
               </div>
             </Col>
 
