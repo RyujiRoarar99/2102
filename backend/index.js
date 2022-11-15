@@ -32,6 +32,7 @@ app.post('/login',(req,res) => {
     );
 })
 
+//----------------------------------------------------------- WASHER EQUIPMENT -----------------------------------------------------------------
 //For viewing washer overview in the system
 app.post('/EquipmentOverviewWasher',(req, res) => {
     const filteredSerialNo = req.body.filteredSerialNo;
@@ -51,7 +52,29 @@ app.post('/EquipmentOverviewWasher',(req, res) => {
         }
     );
 })
-//For viewing washer overview in the system
+
+//For viewing washer logs past and present
+app.post('/EquipmentOverviewWasherLogs',(req, res) => {
+    const SerialNo = req.body.SerialNo;
+    db.query(
+        "SELECT * FROM washer_sampled WHERE washer_id = ?",
+        [SerialNo],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
+
+//----------------------------------------------------------- SCOPE EQUIPMENT -----------------------------------------------------------------
+//For viewing scope overview in the system
 app.post('/EquipmentOverviewScope',(req, res) => {
     const filteredSerialNo = req.body.filteredSerialNo;
     db.query(
@@ -71,10 +94,12 @@ app.post('/EquipmentOverviewScope',(req, res) => {
     );
 })
 
-//For viewing washer overview in the system
-app.post('/EquipmentOverviewWasherFiltered',(req, res) => {
+//For viewing washer logs past and present
+app.post('/EquipmentOverviewScopeLogs',(req, res) => {
+    const SerialNo = req.body.SerialNo;
     db.query(
-        "SELECT * FROM washer WHERE serial_no LIKE concat(?, '%')",
+        "SELECT * FROM scope_sampled WHERE scope_id = ?",
+        [SerialNo],
         (err, result) => {
             if(err) {
                 console.log(err);
@@ -88,6 +113,7 @@ app.post('/EquipmentOverviewWasherFiltered',(req, res) => {
         }
     );
 })
+
 
 //Check if connection is successful when initialized
 app.listen(3001, ()=> {

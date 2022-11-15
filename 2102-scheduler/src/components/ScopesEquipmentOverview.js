@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import moment from "moment";
 
 const ScopesEquipmentOverview = (props) => {
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
@@ -27,7 +28,6 @@ const ScopesEquipmentOverview = (props) => {
         filteredSerialNo:filteredSerialNo
         }).then((response) => {
         if(response.data.length) {
-            console.log(response.data);
             setScopeData(response.data);
         }
         else {
@@ -49,12 +49,16 @@ const ScopesEquipmentOverview = (props) => {
         const scopeModelNo = rowDataArray[2];
         const scope = [scopeSerialNo, scopeModelNo];
         setSelectedScope(scope);
-
-        const checkSample = (sample) => {
-            return sample.serialNo === scopeSerialNo;
-        };
-        setScopeSamples(scopeSamplingInformation.filter(checkSample));
-        // console.log(scopeSamples);
+        Axios.post("http://localhost:3001/EquipmentOverviewScopeLogs", {
+        SerialNo:scopeSerialNo
+        }).then((response) => {
+            if(response.data.length) {
+                setScopeSamples(response.data);
+            }
+            else {
+                setScopeSamples([]);
+            }
+        });
 
         setShow(true);
     };
@@ -73,27 +77,6 @@ const ScopesEquipmentOverview = (props) => {
 
         setShow2(true);
     };
-
-    const scopeSamplingInformation = [
-        {
-            serialNo: "vqrhm1pzwy9r",
-            modelNo: "ModelNo1",
-            date: "12-12-2022",
-            washedBy: "A",
-            collectedBy: "B",
-            circulatedBy: "C",
-            loggedBy: "A",
-        },
-        {
-            serialNo: "SerialNo1",
-            modelNo: "ModelNo1",
-            date: "2-2-2022",
-            washedBy: "X",
-            collectedBy: "Y",
-            circulatedBy: "Z",
-            loggedBy: "X",
-        },
-    ];
 
     return (
         <div>
@@ -123,7 +106,7 @@ const ScopesEquipmentOverview = (props) => {
                         </thead>
                         <tbody>
                             {scopeSamples.map((tuple, index) => (
-                                <tr id={tuple.serialNo}>
+                                <tr>
                                     <td className="text-center">
                                         <Button
                                             variant="success"
@@ -136,11 +119,11 @@ const ScopesEquipmentOverview = (props) => {
                                         />
                                     </td>
                                     <td className="col-1">{index + 1}</td>
-                                    <td className="">{tuple.date}</td>
-                                    <td className="">{tuple.washedBy}</td>
-                                    <td className="">{tuple.collectedBy}</td>
-                                    <td className="">{tuple.circulatedBy}</td>
-                                    <td className="">{tuple.loggedBy}</td>
+                                    <td className="">{moment(tuple.date_of_collection).utc().format("D MMM YYYY")}</td> {/* date of collection */}
+                                    <td className="">{tuple.collected_by}</td> {/* washed by*/}
+                                    <td className="">{tuple.collected_by}</td> {/* collected by */}
+                                    <td className="">{tuple.circulated_by}</td> {/* circulated by */}
+                                    <td className="">{tuple.collected_by}</td> {/* logged_by */}
                                 </tr>
                             ))}
                         </tbody>

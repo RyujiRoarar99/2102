@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import moment from "moment";
 
 const WasherEquipmentOverview = (props) => {
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
@@ -24,7 +25,6 @@ const WasherEquipmentOverview = (props) => {
         filteredSerialNo:filteredSerialNo
         }).then((response) => {
         if(response.data.length) {
-            console.log(response.data);
             setWasherData(response.data);
         }
         else {
@@ -47,12 +47,18 @@ const WasherEquipmentOverview = (props) => {
         const washer = [washerSerialNo, washerModelNo];
         setSelectedWasher(washer);
 
-        const checkSample = (sample) => {
-            return sample.serialNo === washerSerialNo;
-        };
-        setWasherSamples(WasherSamplingInformation.filter(checkSample));
-
-        setShow(true);
+        Axios.post("http://localhost:3001/EquipmentOverviewWasherLogs", {
+        SerialNo:washerSerialNo
+        }).then((response) => {
+            if(response.data.length) {
+                setWasherSamples(response.data);
+                setShow(true);
+            }
+            else {
+                setWasherSamples([]);
+                setShow(true);
+            }
+        });
     };
 
     const handleClose2 = () => setShow2(false);
@@ -68,27 +74,6 @@ const WasherEquipmentOverview = (props) => {
 
         setShow2(true);
     };
-
-    const WasherSamplingInformation = [
-        {
-            serialNo: "SerialNo1",
-            modelNo: "ModelNo1",
-            date: "12-12-2022",
-            washedBy: "A",
-            collectedBy: "B",
-            circulatedBy: "C",
-            loggedBy: "A",
-        },
-        {
-            serialNo: "SerialNo1",
-            modelNo: "ModelNo1",
-            date: "2-2-2022",
-            washedBy: "X",
-            collectedBy: "Y",
-            circulatedBy: "Z",
-            loggedBy: "X",
-        },
-    ];
 
     return (
         <div>
@@ -117,7 +102,7 @@ const WasherEquipmentOverview = (props) => {
                         </thead>
                         <tbody>
                             {WasherSamples.map((tuple, index) => (
-                                <tr id={tuple.serialNo}>
+                                <tr>
                                     <td className="text-center">
                                         <Button
                                             variant="success"
@@ -130,10 +115,10 @@ const WasherEquipmentOverview = (props) => {
                                         />
                                     </td>
                                     <td className="col-1">{index + 1}</td>
-                                    <td className="">{tuple.date}</td>
-                                    <td className="">{tuple.collectedBy}</td>
-                                    <td className="">{tuple.circulatedBy}</td>
-                                    <td className="">{tuple.loggedBy}</td>
+                                    <td className="">{moment(tuple.date_of_collection).utc().format("D MMM YYYY")}</td> {/* date of collection */}
+                                    <td className="">{tuple.collected_by}</td> {/* collected by */}
+                                    <td className="">{tuple.circulated_by}</td> {/* circulated by */}
+                                    <td className="">{tuple.circulated_by}</td> {/* logged_by */}
                                 </tr>
                             ))}
                         </tbody>
