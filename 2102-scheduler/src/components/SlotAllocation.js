@@ -1,72 +1,69 @@
-import React, { Component, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
 
 import BreadcrumbComponent from "./BreadcrumbComponent";
+
 import Container from "react-bootstrap/Container";
-
 import { Col, Row } from "reactstrap";
-import { Button , Form } from "react-bootstrap";
-import FullCalendar, { flexibleCompare } from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import Alert from "sweetalert2";
-// import "@fullcalendar/core/main.css";
-import "@fullcalendar/daygrid/main.css";
-import "@fullcalendar/timegrid/main.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Form } from "react-bootstrap";
 
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/Dropdown";
+import FullCalendar from "@fullcalendar/react"; // must go before plugins
+import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import interactionPlugin from "@fullcalendar/interaction";
+
+import DatePicker from "react-multi-date-picker";
 
 const breadcrumbs = ["Home", "Slot Allocation"];
 
 class SlotAllocation extends Component {
+  handleDateClick = (arg) => {
+    // bind with an arrow function
+    alert(arg.dateStr);
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
+      today: new Date(),
+      tomorrow: new Date(),
     };
-    this.handleSelect = this.handleSelect.bind(this);
+    
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSelect(e) {
-    console.log(e);
-    this.setState({ value: e });
+  handleChange(e) {
+    
+    this.setDate({ date: e }, {tomorrow: tomorrow.setDate(tomorrow.getDate() + 1) })
   }
 
   render() {
     return (
       <Container>
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
-        <div className="animated fadeIn p-4 demo-app">
-          <Row>
+
+        <div className="animated fadeIn p-4">
+          <Row className="justify-content-md-center">
             <Col lg={3} sm={3} md={3}>
               <div
                 id="external-events"
                 style={{
                   padding: "10px",
-                  width: "10%",
-                  height: "15%",
+                  width: "15%",
+                  height: "50%",
                 }}
               >
                 <p align="center">
                   <strong> Number of Slots</strong>
                 </p>
                 <div className="App container">
-                  <Form.Select style={{
-                    marginBottom: "20px"
-                  }}>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                  </Form.Select>
+                  <input
+                    
+                    type="number"
+                    id="numberofslots"
+                    name="numberofslots"
+                    min={0}
+                  />
 
+                  <DatePicker multiple value={this.state.date} onChange={this.handleChange} />
                   <Button className="m-t-5" variant="primary" type="submit">
                     Confrim
                   </Button>
@@ -77,25 +74,13 @@ class SlotAllocation extends Component {
             <Col lg={9} sm={9} md={9}>
               <div className="demo-app-calendar" id="mycalendartest">
                 <FullCalendar
-                  defaultView="dayGridMonth"
-                  header={{
-                    left: "prev,next Today",
-                    center: "title",
-                    right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-                  }}
-                  rerenderDelay={10}
-                  eventDurationEditable={false}
-                  editable={true}
-                  droppable={true}
-                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                  ref={this.calendarComponentRef}
-                  weekends={this.state.calendarWeekends}
-                  events={this.state.calendarEvents}
-                  eventDrop={this.drop}
-                  // drop={this.drop}
-                  eventReceive={this.eventReceive}
-                  eventClick={this.eventClick}
-                  // selectable={true}
+                  plugins={[dayGridPlugin, interactionPlugin]}
+                  initialView="dayGridMonth"
+                  dateClick={this.handleDateClick}
+                  events={[
+                    { title: "event 1", date: "2022-11-15" },
+                    { title: "event 2", date: "2022-11-14" },
+                  ]}
                 />
               </div>
             </Col>
