@@ -37,7 +37,7 @@ class SlotAllocation extends Component {
 
   handleDate = (date) => {
     this.setState({
-      date: []
+      date: date.target.date
     });
   }
 
@@ -108,6 +108,3 @@ class SlotAllocation extends Component {
 }
 
 export default SlotAllocation;
-
-
-
