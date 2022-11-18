@@ -23,17 +23,31 @@ class SlotAllocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      today: new Date(),
-      tomorrow: new Date(),
+      date: [],
+      numberOfSlots: "",
+      addEvent:"",
     };
-    
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
-    
-    this.setDate({ date: e }, {tomorrow: tomorrow.setDate(tomorrow.getDate() + 1) })
+  handleSlots = (slots) => {
+    this.setState({
+      numberOfSlots: slots.target.numberOfSlots
+    });
   }
+
+  handleDate = (date) => {
+    this.setState({
+      date: []
+    });
+  }
+
+  handleAddEvent = (e) => {
+    this.setState({
+      addEvent: e.target.addEvent
+    });
+  }
+
+ 
 
   render() {
     return (
@@ -41,34 +55,39 @@ class SlotAllocation extends Component {
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
 
         <div className="animated fadeIn p-4">
-          <Row className="justify-content-md-center">
-            <Col lg={3} sm={3} md={3}>
-              <div
-                id="external-events"
-                style={{
-                  padding: "10px",
-                  width: "15%",
-                  height: "50%",
-                }}
-              >
-                <p align="center">
-                  <strong> Number of Slots</strong>
-                </p>
-                <div className="App container">
-                  <input
-                    
-                    type="number"
-                    id="numberofslots"
-                    name="numberofslots"
-                    min={0}
-                  />
+          <Row>
+            <Col lg={2} sm={2} md={2} className="text-center">
+              <Row>
+                <strong> Insert Number of Slots</strong>
+              </Row>
 
-                  <DatePicker multiple value={this.state.date} onChange={this.handleChange} />
-                  <Button className="m-t-5" variant="primary" type="submit">
-                    Confrim
-                  </Button>
-                </div>
-              </div>
+              <Row>
+                <input
+                  placeholder="Choose number of slots"
+                  type="number"
+                  id="numberofslots"
+                  name="numberofslots"
+                  min={0}
+                  value={this.state.numberOfSlots}
+                  onChange={this.handleSlots}
+                />
+              </Row>
+              <Row>
+                <DatePicker
+                  placeholder="Choose date(s)"
+                  multiple
+                  selected={this.state.date}
+                  onChange={this.handleDate}
+                />
+              </Row>
+              <Row>
+                <Button 
+                variant="primary" 
+                type="submit"
+                onClick={this.handleAddEvent}>
+                  Confrim
+                </Button>
+              </Row>
             </Col>
 
             <Col lg={9} sm={9} md={9}>
@@ -76,11 +95,8 @@ class SlotAllocation extends Component {
                 <FullCalendar
                   plugins={[dayGridPlugin, interactionPlugin]}
                   initialView="dayGridMonth"
-                  dateClick={this.handleDateClick}
-                  events={[
-                    { title: "event 1", date: "2022-11-15" },
-                    { title: "event 2", date: "2022-11-14" },
-                  ]}
+                  
+                  events={ this.state.addEvent }
                 />
               </div>
             </Col>
