@@ -7,8 +7,8 @@ const Experiment = () => {
     return (
         <div>
             <Navbar />
-            <EquipmentSchedulingPage />
             <EquipmentOverviewPage />
+            <EquipmentSchedulingPage />
         </div>
     );
 }
