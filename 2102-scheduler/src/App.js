@@ -12,6 +12,7 @@ import EquipmentOverview from "./routes/EquipmentOverview";
 import LogRecords from "./routes/LogRecords";
 import LogInPage from "./routes/LogInPage";
 import RegisterPage from "./routes/RegisterPage";
+import Experiment from './routes/Experiment';
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     element={<EquipmentOverview />}
                 />
                 <Route path="/LogRecords" element={<LogRecords />} />
+                <Route path="/Experiment" element={<Experiment />} />
             </Routes>
         </>
     );
