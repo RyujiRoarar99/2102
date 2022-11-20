@@ -25,29 +25,27 @@ class SlotAllocation extends Component {
     this.state = {
       date: "",
       numberOfSlots: "",
-      addEvent:"",
+      addEvent: "",
     };
   }
 
   handleSlots = (slots) => {
     this.setState({
-      numberOfSlots: slots.target.numberOfSlots
+      numberOfSlots: slots.target.numberOfSlots,
     });
-  }
+  };
 
   handleDate = (date) => {
     this.setState({
-      date: []
+      date: [],
     });
-  }
+  };
 
   handleAddEvent = () => {
     this.setState({
-      addEvent: [...this.state.date, this.state.numberOfSlots]
+      addEvent: [...this.state.date, this.state.numberOfSlots],
     });
-  }
-
- 
+  };
 
   render() {
     return (
@@ -56,6 +54,16 @@ class SlotAllocation extends Component {
 
         <div className="animated fadeIn p-4">
           <Row>
+            <Col lg={9} sm={9} md={9}>
+              <div className="demo-app-calendar" id="mycalendartest">
+                <FullCalendar
+                  plugins={[dayGridPlugin, interactionPlugin]}
+                  initialView="dayGridMonth"
+                  events={this.state.addEvent}
+                />
+              </div>
+            </Col>
+
             <Col lg={2} sm={2} md={2} className="text-center">
               <Row>
                 <strong> Insert Number of Slots</strong>
@@ -81,24 +89,14 @@ class SlotAllocation extends Component {
                 />
               </Row>
               <Row>
-                <Button 
-                variant="primary" 
-                type="submit"
-                onClick={this.handleAddEvent}>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  onClick={this.handleAddEvent}
+                >
                   Confrim
                 </Button>
               </Row>
-            </Col>
-
-            <Col lg={9} sm={9} md={9}>
-              <div className="demo-app-calendar" id="mycalendartest">
-                <FullCalendar
-                  plugins={[dayGridPlugin, interactionPlugin]}
-                  initialView="dayGridMonth"
-                  
-                  events={ this.state.addEvent}
-                />
-              </div>
             </Col>
           </Row>
         </div>
@@ -108,6 +106,3 @@ class SlotAllocation extends Component {
 }
 
 export default SlotAllocation;
-
-
-
