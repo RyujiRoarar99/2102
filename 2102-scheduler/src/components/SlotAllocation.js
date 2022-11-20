@@ -10,6 +10,7 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction";
 
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import DatePicker from "react-multi-date-picker";
 
 const breadcrumbs = ["Home", "Slot Allocation"];
@@ -84,8 +85,10 @@ class SlotAllocation extends Component {
                 <DatePicker
                   placeholder="Choose date(s)"
                   multiple
+                  sort
                   selected={this.state.date}
                   onChange={this.handleDate}
+                  plugins={[<DatePanel />]}
                 />
               </Row>
               <Row>
