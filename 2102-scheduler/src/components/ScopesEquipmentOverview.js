@@ -68,7 +68,11 @@ const ScopesEquipmentOverview = (props) => {
         const washedBy = rowDataArray[3];
         const collectedBy = rowDataArray[4];
         const circulatedBy = rowDataArray[5];
-        const sampleInformation = [date, washedBy, collectedBy, circulatedBy];
+        const date_of_result = rowDataArray[6];
+        const fluidResult = rowDataArray[7]
+        const analysis = rowDataArray[8]
+        const actionTaken = rowDataArray[9]
+        const sampleInformation = [date, washedBy, collectedBy, circulatedBy, date_of_result, fluidResult, analysis, actionTaken];
         setSelectedSample(sampleInformation);
 
         setShow2(true);
@@ -98,6 +102,10 @@ const ScopesEquipmentOverview = (props) => {
                                 <th>Collected By</th>
                                 <th>Circulated By</th>
                                 <th>Logged By</th>
+                                <th>Date of Result</th>
+                                <th>Fluid Result</th>
+                                <th>Analysis</th>
+                                <th>Action Taken</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,6 +128,10 @@ const ScopesEquipmentOverview = (props) => {
                                     <td className="">{tuple.collected_by}</td> {/* collected by */}
                                     <td className="">{tuple.circulated_by}</td> {/* circulated by */}
                                     <td className="">{tuple.collected_by}</td> {/* logged_by */}
+                                    <td className="">{tuple.date_of_result}</td> {/* date of result */}
+                                    <td className="">{tuple.fluid_result}</td> {/* fluid result */}
+                                    <td className="">{tuple.analysis}</td> {/* analysis */}
+                                    <td className="">{tuple.action_taken}</td> {/* action taken */}
                                 </tr>
                             ))}
                         </tbody>
@@ -232,6 +244,64 @@ const ScopesEquipmentOverview = (props) => {
                                         placeholder="ciruclated by"
                                         onChange={null}
                                         value={selectedSample[3]}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+
+                        <Form.Label>Fluid Results</Form.Label>
+                        <Row className="mb-3">
+                        <Col>
+                                <FloatingLabel
+                                    controlId="floatingInput"
+                                    label="Date of Result"
+                                >
+                                    <Form.Control
+                                        type="date"
+                                        placeholder="date of result"
+                                        disabled
+                                        value={null}
+                                    />
+                                </FloatingLabel>
+                        </Col>
+                        <Col>
+                                <FloatingLabel
+                                    controlId="floatingInputGrid"
+                                    label="Fluid Result"
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="fluid result"
+                                        onChange={null}
+                                        value={null}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+                        <Row className="mb-3">
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInputGrid"
+                                    label="Analysis"
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="analysis"
+                                        onChange={null}
+                                        value={null}
+                                    />
+                                </FloatingLabel>
+                            </Col>
+                            <Col>
+                                <FloatingLabel
+                                    controlId="floatingInputGrid"
+                                    label="Action Taken"
+                                >
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="action taken"
+                                        onChange={null}
+                                        value={null}
                                     />
                                 </FloatingLabel>
                             </Col>

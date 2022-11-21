@@ -3,11 +3,11 @@ import Navbar from "../components/NavBar";
 import EquipmentSchedulingPage from "../components/EquipmentScheduling";
 
 
-const EquipmentScheduling = () => {
+const EquipmentScheduling = (props) => {
     return (
         <div>
             <Navbar />
-            <EquipmentSchedulingPage />
+            <EquipmentSchedulingPage test = {[1]}/>
         </div>
     );
 };

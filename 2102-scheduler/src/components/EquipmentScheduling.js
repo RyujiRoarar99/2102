@@ -19,13 +19,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import "./styles.css";
 import "./EquipmentScheduling.css"
 
-const breadcrumbs = ["Home", "Equipment Scheduling"];
+let breadcrumbs = ["Home", "Equipment Scheduling"];
 
 
 class EquipmentScheduling extends Component {
+<<<<<<< Updated upstream
 
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+        filteredSerialNo: "",
+=======
     
     state = {
+      breadcrumbs: ["Home", "Equipment Scheduling"],
+>>>>>>> Stashed changes
         calendarEvents: [
           {
             title: "Atlanta Monster",
@@ -114,8 +123,11 @@ class EquipmentScheduling extends Component {
           }
         });
       };
-      
       render() {
+        console.log(this.props.test); /* temp */
+        if (this.props.test.length === 0) {
+          this.state.breadcrumbs = this.props.test;
+        }
         return (
         <Container>
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
