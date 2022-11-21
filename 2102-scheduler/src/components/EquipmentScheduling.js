@@ -3,7 +3,7 @@
 import BreadcrumbComponent from "./BreadcrumbComponent";
 import Container from "react-bootstrap/Container";
 
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 // import ReactDOM from "react-dom";
 import { Col, Row } from "reactstrap";
 import FullCalendar from "@fullcalendar/react";
@@ -27,7 +27,7 @@ const breadcrumbs = ["Home", "Equipment Scheduling"];
 
 
 class EquipmentScheduling extends Component {
-
+  
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -35,15 +35,13 @@ class EquipmentScheduling extends Component {
         filteredSerialNo: "",
         calendarEvents: [
           {
-            title: "Atlanta Monster",
-            start: new Date("2019-04-04"),
-            start: new Date("2019-04-04 00:00"),
+            title: "3",
+            start: new Date("2022-04-04"),
             id: "99999998"
           },
           {
             title: "My Favorite Murder",
-            start: new Date("2019-04-05"),
-            start: new Date("2019-04-05 00:00"),
+            start: new Date("2022-04-05"),
             id: "99999999"
           }
         ],
