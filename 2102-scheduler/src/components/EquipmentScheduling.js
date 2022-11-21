@@ -89,18 +89,7 @@ class EquipmentScheduling extends Component {
           <table class="table" style="width:100%">
           <table class="table">
           <tbody>
-          <tr >
-          <td style="width:20%">Scope</td>
-          <td>Title</td>
-          <td><strong>` +
-            eventClick.event.title +
-            `</strong></td>
-          </tr>
-          <tr>
-          <td>Date</td>
-          <tr >
-          <td>Start Time</td>
-          <td><strong>
+          <strong>
           ` +
             eventClick.event.start +
             `
@@ -113,14 +102,14 @@ class EquipmentScheduling extends Component {
           showCancelButton: true,
           confirmButtonColor: "#d33",
           cancelButtonColor: "#3085d6",
-          confirmButtonText: "Remove Scope",
-          confirmButtonText: "Remove Event",
+          confirmButtonText: "Remove Equipment",
+          confirmButtonText: "Remove Equipment",
           cancelButtonText: "Close"
         }).then(result => {
           if (result.value) {
             eventClick.event.remove(); // It will remove event from the calendar
-            Alert.fire("Removed!", "Scope has been removed.", "success");
-            Alert.fire("Deleted!", "Your Event has been deleted.", "success");
+            Alert.fire("Removed!", "Equipment has been removed.", "success");
+            Alert.fire("Deleted!", "Equipment has been deleted.", "success");
           }
         });
       };
@@ -180,7 +169,7 @@ class EquipmentScheduling extends Component {
                   style={{
                     padding: "10px",
                     width: "110%",
-                    height: "60%",
+                    height: "48%",
                     maxHeight: "-webkit-fill-available"
                   }}
                 >
@@ -189,7 +178,7 @@ class EquipmentScheduling extends Component {
                   </p>
                   {this.state.events.map(event => (
                     <div
-                      className="fc-event"
+                      className=" fc-event"
                       title={event.title}
                       data={event.id}
                       key={event.id}
@@ -199,19 +188,40 @@ class EquipmentScheduling extends Component {
                   ))}
                 </div>
                 <Table size="sm" id="slotTable"
-                className="mt-10"
+                className="mt-2"
                   style={{
-                    width: "100%",
-                    height: "20%",
-                    maxHeight: "-webkit-fill-available"
+                    display:"block",
+                    width: "70%",
+                    height: "40%",
+                    maxHeight: "100%"
                   }}>
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th>Date</th>
                       <th colSpan={2}>Slots Left:</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td>2022-10-12</td>
+                      <td>3 slots</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>2 slots</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>4 slots</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>4 slots</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>4 slots</td>
+                    </tr>
                     <tr>
                       <td>1</td>
                       <td>3 slots</td>
@@ -232,6 +242,7 @@ class EquipmentScheduling extends Component {
                       <td>3</td>
                       <td>4 slots</td>
                     </tr>
+                    
                   </tbody>
                 </Table> 
               </Col>
