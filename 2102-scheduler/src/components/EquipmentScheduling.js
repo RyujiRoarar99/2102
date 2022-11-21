@@ -1,4 +1,3 @@
-
 // import { Link } from "react-router-dom";
 
 import BreadcrumbComponent from "./BreadcrumbComponent";
@@ -26,6 +25,7 @@ import "./EquipmentScheduling.css"
 
 const breadcrumbs = ["Home", "Equipment Scheduling"];
 
+
 class EquipmentScheduling extends Component {
 
   constructor(props) {
@@ -37,11 +37,13 @@ class EquipmentScheduling extends Component {
           {
             title: "Atlanta Monster",
             start: new Date("2019-04-04"),
+            start: new Date("2019-04-04 00:00"),
             id: "99999998"
           },
           {
             title: "My Favorite Murder",
             start: new Date("2019-04-05"),
+            start: new Date("2019-04-05 00:00"),
             id: "99999999"
           }
         ],
@@ -56,13 +58,15 @@ class EquipmentScheduling extends Component {
           { title: "Scope D1", id: "8" },
           { title: "Scope D2", id: "9" }
         ]
-    };
+
+    }
   }
 
-  handleChange = (event) => {
-    event.preventDefault();
-    this.setState({"filteredSerialNo": event.target.value});
-  }
+      handleChange = (event) => {
+        event.preventDefault();
+        this.setState({"filteredSerialNo": event.target.value});
+      }
+    
     
       componentDidMount() {
         let draggableEl = document.getElementById("external-events");
@@ -85,15 +89,19 @@ class EquipmentScheduling extends Component {
           html:
             `<div class="table-responsive">
           <table class="table" style="width:100%">
+          <table class="table">
           <tbody>
           <tr >
           <td style="width:20%">Scope</td>
+          <td>Title</td>
           <td><strong>` +
             eventClick.event.title +
             `</strong></td>
           </tr>
           <tr>
           <td>Date</td>
+          <tr >
+          <td>Start Time</td>
           <td><strong>
           ` +
             eventClick.event.start +
@@ -108,11 +116,13 @@ class EquipmentScheduling extends Component {
           confirmButtonColor: "#d33",
           cancelButtonColor: "#3085d6",
           confirmButtonText: "Remove Scope",
+          confirmButtonText: "Remove Event",
           cancelButtonText: "Close"
         }).then(result => {
           if (result.value) {
             eventClick.event.remove(); // It will remove event from the calendar
             Alert.fire("Removed!", "Scope has been removed.", "success");
+            Alert.fire("Deleted!", "Your Event has been deleted.", "success");
           }
         });
       };
@@ -123,8 +133,34 @@ class EquipmentScheduling extends Component {
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
           <div className="animated fadeIn p-4 demo-app">
             <Row>
-
-              <Col lg={9}>
+              {/* <Col lg={9}> */}
+              <Col lg={3} sm={3} md={3}>
+                <div
+                  id="external-events"
+                  style={{
+                    padding: "10px",
+                    width: "10%",
+                    height: "50%",
+                    maxHeight: "-webkit-fill-available"
+                  }}
+                >
+                  <p align="center">
+                    <strong> Events</strong>
+                  </p>
+                  {this.state.events.map(event => (
+                    <div
+                      className="fc-event"
+                      title={event.title}
+                      data={event.id}
+                      key={event.id}
+                    >
+                      {event.title}
+                    </div>
+                  ))}
+                </div>
+              </Col>
+      
+              <Col lg={9} sm={9} md={9}>
                 <div className="demo-app-calendar" id="mycalendartest">
                   <FullCalendar
                     defaultView="dayGridMonth"
@@ -230,8 +266,7 @@ class EquipmentScheduling extends Component {
             </Row>
           </div>
           </Container>
-        );
-      }
-    }
+        )}}
+
 
 export default EquipmentScheduling;

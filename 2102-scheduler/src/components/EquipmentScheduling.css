@@ -15,9 +15,6 @@
   background: #77ccff;
 }
 
-#eventTable {
-  position: relative;
-}
 #slotTable {
   position: absolute;
   bottom: 0;

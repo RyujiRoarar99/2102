@@ -8,7 +8,7 @@ const Experiment = () => {
         <div>
             <Navbar />
             <EquipmentOverviewPage />
-            <EquipmentSchedulingPage />
+            <EquipmentSchedulingPage test = {[]} />
         </div>
     );
 }
