@@ -1,4 +1,3 @@
-
 // import { Link } from "react-router-dom";
 
 import BreadcrumbComponent from "./BreadcrumbComponent";
@@ -12,6 +11,11 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import Alert from "sweetalert2";
+import Table from 'react-bootstrap/Table';
+
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+
 // import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
@@ -19,57 +23,50 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import "./styles.css";
 import "./EquipmentScheduling.css"
 
-let breadcrumbs = ["Home", "Equipment Scheduling"];
+const breadcrumbs = ["Home", "Equipment Scheduling"];
 
 
 class EquipmentScheduling extends Component {
-<<<<<<< Updated upstream
 
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
         filteredSerialNo: "",
-=======
-    
-    state = {
-      breadcrumbs: ["Home", "Equipment Scheduling"],
->>>>>>> Stashed changes
         calendarEvents: [
           {
             title: "Atlanta Monster",
+            start: new Date("2019-04-04"),
             start: new Date("2019-04-04 00:00"),
             id: "99999998"
           },
           {
             title: "My Favorite Murder",
+            start: new Date("2019-04-05"),
             start: new Date("2019-04-05 00:00"),
             id: "99999999"
           }
         ],
         events: [
-          { title: "Event 1", id: "1" },
-          { title: "Event 2", id: "2" },
-          { title: "Event 3", id: "3" },
-          { title: "Event 4", id: "4" },
-          { title: "Event 5", id: "5" },
-          { title: "Event 6", id: "6" },
-          { title: "Event 7", id: "7" },
-          { title: "Event 8", id: "8" },
-          { title: "Event 9", id: "9" },
-          { title: "Event 10", id: "10" },
-          { title: "Event 11", id: "11" },
-          { title: "Event 12", id: "12" },
-          { title: "Event 13", id: "13" },
-          { title: "Event 14", id: "14" },
-          { title: "Event 15", id: "15" },
-          { title: "Event 16", id: "16" },
-          { title: "Event 17", id: "17" },
-          { title: "Event 18", id: "18" },
-          { title: "Event 19", id: "19" },
-          { title: "Event 20", id: "20" },
+          { title: "Scope A1", id: "1" },
+          { title: "Scope A2", id: "2" },
+          { title: "Scope B1", id: "3" },
+          { title: "Scope C3", id: "4" },
+          { title: "Scope A4", id: "5" },
+          { title: "Scope G4", id: "6" },
+          { title: "Scope B5", id: "7" },
+          { title: "Scope D1", id: "8" },
+          { title: "Scope D2", id: "9" }
         ]
-      };
+
+    }
+  }
+
+      handleChange = (event) => {
+        event.preventDefault();
+        this.setState({"filteredSerialNo": event.target.value});
+      }
+    
     
       componentDidMount() {
         let draggableEl = document.getElementById("external-events");
@@ -91,14 +88,18 @@ class EquipmentScheduling extends Component {
           title: eventClick.event.title,
           html:
             `<div class="table-responsive">
+          <table class="table" style="width:100%">
           <table class="table">
           <tbody>
           <tr >
+          <td style="width:20%">Scope</td>
           <td>Title</td>
           <td><strong>` +
             eventClick.event.title +
             `</strong></td>
           </tr>
+          <tr>
+          <td>Date</td>
           <tr >
           <td>Start Time</td>
           <td><strong>
@@ -114,25 +115,25 @@ class EquipmentScheduling extends Component {
           showCancelButton: true,
           confirmButtonColor: "#d33",
           cancelButtonColor: "#3085d6",
+          confirmButtonText: "Remove Scope",
           confirmButtonText: "Remove Event",
           cancelButtonText: "Close"
         }).then(result => {
           if (result.value) {
             eventClick.event.remove(); // It will remove event from the calendar
+            Alert.fire("Removed!", "Scope has been removed.", "success");
             Alert.fire("Deleted!", "Your Event has been deleted.", "success");
           }
         });
       };
+      
       render() {
-        console.log(this.props.test); /* temp */
-        if (this.props.test.length === 0) {
-          this.state.breadcrumbs = this.props.test;
-        }
         return (
         <Container>
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
           <div className="animated fadeIn p-4 demo-app">
             <Row>
+              {/* <Col lg={9}> */}
               <Col lg={3} sm={3} md={3}>
                 <div
                   id="external-events"
@@ -184,11 +185,88 @@ class EquipmentScheduling extends Component {
                   />
                 </div>
               </Col>
+
+              <Col id="eventTable" lg={3}>
+              <FloatingLabel
+                    controlId="floatingSerialNo"
+                    label="Equipment Serial No."
+                    style={{
+                      width: "120%",
+                      height: "10%",
+                    }}
+                >
+                    <Form.Control
+                        type="text"
+                        placeholder="equipment"
+                        value= {this.state.filteredSerialNo}
+                        onChange={this.handleChange}
+                    />
+                </FloatingLabel>
+                <div
+                  id="external-events"
+                  className="mb-100"
+                  style={{
+                    padding: "10px",
+                    width: "110%",
+                    height: "60%",
+                    maxHeight: "-webkit-fill-available"
+                  }}
+                >
+                  <p align="center">
+                    <strong> Equipments</strong>
+                  </p>
+                  {this.state.events.map(event => (
+                    <div
+                      className="fc-event"
+                      title={event.title}
+                      data={event.id}
+                      key={event.id}
+                    >
+                      {event.title}
+                    </div>
+                  ))}
+                </div>
+                <Table size="sm" id="slotTable"
+                className="mt-10"
+                  style={{
+                    width: "110%",
+                    height: "20%",
+                    maxHeight: "-webkit-fill-available"
+                  }}>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th colSpan={2}>Slots Left:</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>3 slots</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>2 slots</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>4 slots</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>4 slots</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>4 slots</td>
+                    </tr>
+                  </tbody>
+                </Table> 
+              </Col>
             </Row>
           </div>
           </Container>
-        );
-      }
-    }
+        )}}
+
 
 export default EquipmentScheduling;
