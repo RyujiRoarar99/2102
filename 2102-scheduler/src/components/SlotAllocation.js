@@ -94,7 +94,7 @@ class SlotAllocation extends Component {
                   type="submit"
                   onClick={this.handleAddEvent}
                 >
-                  Confrim
+                  Confirm
                 </Button>
              
               </Card>
