@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import DropdownComponent from "./DropdownComponent";
 import Table from "react-bootstrap/Table";
@@ -21,7 +21,9 @@ const WasherEquipmentOverview = (props) => {
     const [filteredSerialNo, setFilteredSerialNo] = useState("");
     //get scope data from database
     const [washerData, setWasherData] = useState([]);
-    Axios.post("http://localhost:3001/EquipmentOverviewWasher", {
+
+    useEffect(() => {
+        Axios.post("http://localhost:3001/EquipmentOverviewWasher", {
         filteredSerialNo:filteredSerialNo
         }).then((response) => {
         if(response.data.length) {
@@ -31,13 +33,7 @@ const WasherEquipmentOverview = (props) => {
             setWasherData([]);
         }
     });
-
-    //action when a value gets typed in
-    const serialNoChangeHandler = (event) => {
-        event.preventDefault();
-        setFilteredSerialNo(event.target.value);
-    };
-
+    },[filteredSerialNo])
     const handleClose = () => setShow(false);
     const handleShow = (event) => {
         const rowDataArray =
@@ -246,8 +242,7 @@ const WasherEquipmentOverview = (props) => {
                         <Form.Control
                             type="text"
                             placeholder="serial no"
-                            value={filteredSerialNo}
-                            onChange={serialNoChangeHandler}
+                            onChange={(e) => setFilteredSerialNo(e.target.value)}
                         />
                     </FloatingLabel>
                 </Col>
