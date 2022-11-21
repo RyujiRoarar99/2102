@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-
+import React, { Component,useState,useEffect } from "react";
+import Axios from "axios";
 import BreadcrumbComponent from "./BreadcrumbComponent";
 
 import Container from "react-bootstrap/Container";
@@ -19,27 +19,44 @@ class SlotAllocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: [],
+      existingDates: [],
+      dates: [],
       numberOfSlots: "",
       addEvent: "",
     };
+    Axios.post("http://localhost:3001/GetScopePerDay").then((response) => {
+        if(response.data.length) {
+          let dataArray = []
+          response.data.map((data,index) => dataArray.push({allDay: true, title: data.slots + " Slots", start: new Date(data.date), id: index+1}))
+          this.setState({existingDates: dataArray});
+        }
+        else {
+          this.setState({existingDates: []});
+        }
+    });
   }
 
   handleSlots = (slots) => {
     this.setState({
-      numberOfSlots: slots.target.numberOfSlots,
+      numberOfSlots: parseInt(slots.nativeEvent.data),
     });
   };
 
   handleDate = (date) => {
     this.setState({
-      date: []
+      date: date
     });
   };
 
   handleAddEvent = () => {
-    this.setState({
-      addEvent: [...this.state.date, this.state.numberOfSlots],
+    let array = [];
+    //{date: data.year + "-" + data.month.number + "-" + data.day,slots: this.state.numberOfSlots,filled:0}
+    this.state.date.map((data) => array.push([data.year + "-" + data.month.number + "-" + data.day,this.state.numberOfSlots,0])) 
+    console.log(array);
+    Axios.post("http://localhost:3001/UpdateScopePerDay",
+    {date: array,slot1: this.state.numberOfSlots}).then((response) => {
+      alert("Data Successfully Sent!");
+      window.location.reload();
     });
   };
 
@@ -55,7 +72,7 @@ class SlotAllocation extends Component {
                 <FullCalendar
                   plugins={[dayGridPlugin, interactionPlugin]}
                   initialView="dayGridMonth"
-                  events={this.state.addEvent}
+                  events={this.state.existingDates}
                 />
               </div>
             </Col>

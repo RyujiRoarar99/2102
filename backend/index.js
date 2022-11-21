@@ -32,6 +32,46 @@ app.post('/login',(req,res) => {
     );
 })
 
+//----------------------------------------------------------- SLOTS PER DAY -----------------------------------------------------------------
+//Get day for all scopes per day
+app.post('/GetScopePerDay',(req,res) => {
+    db.query(
+        "SELECT * FROM no_of_sampling_per_day",
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
+
+//Update the scopes per day
+app.post('/UpdateScopePerDay',(req,res) => {
+    const date = req.body.date;
+    const slot1 = req.body.slot1;
+    console.log(slot1);
+    db.query(
+        "INSERT INTO no_of_sampling_per_day (no_of_sampling_per_day.date,slots,filled) values ? ON DUPLICATE KEY UPDATE slots = ?",
+        [date,slot1],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
 //----------------------------------------------------------- WASHER EQUIPMENT -----------------------------------------------------------------
 //For viewing washer overview in the system
 app.post('/EquipmentOverviewWasher',(req, res) => {
