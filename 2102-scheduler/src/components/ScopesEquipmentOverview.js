@@ -9,6 +9,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import moment from "moment";
+import "./ScopesEquipmentOverview.css"
 
 const ScopesEquipmentOverview = (props) => {
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
@@ -80,11 +81,11 @@ const ScopesEquipmentOverview = (props) => {
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} size="lg">
+            <Modal show={show} onHide={handleClose} size="lg" dialogClassName="my-modal">
                 <Modal.Header closeButton>
                     <Modal.Title>{`${selectedScope[0]} [${selectedScope[1]}]`}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body >
                     <Table
                         className="mt-2"
                         id="Scopes"
