@@ -91,18 +91,7 @@ class EquipmentScheduling extends Component {
           <table class="table" style="width:100%">
           <table class="table">
           <tbody>
-          <tr >
-          <td style="width:20%">Scope</td>
-          <td>Title</td>
-          <td><strong>` +
-            eventClick.event.title +
-            `</strong></td>
-          </tr>
-          <tr>
-          <td>Date</td>
-          <tr >
-          <td>Start Time</td>
-          <td><strong>
+          <strong>
           ` +
             eventClick.event.start +
             `
@@ -115,14 +104,14 @@ class EquipmentScheduling extends Component {
           showCancelButton: true,
           confirmButtonColor: "#d33",
           cancelButtonColor: "#3085d6",
-          confirmButtonText: "Remove Scope",
-          confirmButtonText: "Remove Event",
+          confirmButtonText: "Remove Equipment",
+          confirmButtonText: "Remove Equipment",
           cancelButtonText: "Close"
         }).then(result => {
           if (result.value) {
             eventClick.event.remove(); // It will remove event from the calendar
-            Alert.fire("Removed!", "Scope has been removed.", "success");
-            Alert.fire("Deleted!", "Your Event has been deleted.", "success");
+            Alert.fire("Removed!", "Equipment has been removed.", "success");
+            Alert.fire("Deleted!", "Equipment has been deleted.", "success");
           }
         });
       };
@@ -191,7 +180,7 @@ class EquipmentScheduling extends Component {
                   </p>
                   {this.state.events.map(event => (
                     <div
-                      className="fc-event"
+                      className=" fc-event"
                       title={event.title}
                       data={event.id}
                       key={event.id}
