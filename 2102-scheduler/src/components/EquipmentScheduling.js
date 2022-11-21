@@ -133,34 +133,7 @@ class EquipmentScheduling extends Component {
         <BreadcrumbComponent breadcrumbs={breadcrumbs} />
           <div className="animated fadeIn p-4 demo-app">
             <Row>
-              {/* <Col lg={9}> */}
-              <Col lg={3} sm={3} md={3}>
-                <div
-                  id="external-events"
-                  style={{
-                    padding: "10px",
-                    width: "10%",
-                    height: "50%",
-                    maxHeight: "-webkit-fill-available"
-                  }}
-                >
-                  <p align="center">
-                    <strong> Events</strong>
-                  </p>
-                  {this.state.events.map(event => (
-                    <div
-                      className="fc-event"
-                      title={event.title}
-                      data={event.id}
-                      key={event.id}
-                    >
-                      {event.title}
-                    </div>
-                  ))}
-                </div>
-              </Col>
-      
-              <Col lg={9} sm={9} md={9}>
+              <Col lg={9} >
                 <div className="demo-app-calendar" id="mycalendartest">
                   <FullCalendar
                     defaultView="dayGridMonth"
@@ -185,6 +158,7 @@ class EquipmentScheduling extends Component {
                   />
                 </div>
               </Col>
+
 
               <Col id="eventTable" lg={3}>
               <FloatingLabel
@@ -229,7 +203,7 @@ class EquipmentScheduling extends Component {
                 <Table size="sm" id="slotTable"
                 className="mt-10"
                   style={{
-                    width: "110%",
+                    width: "100%",
                     height: "20%",
                     maxHeight: "-webkit-fill-available"
                   }}>
