@@ -60,12 +60,15 @@ class SlotAllocation extends Component {
               </div>
             </Col>
             <Col lg={2} sm={2} md={2} className="text-center">
-              <Card>
+              <Card
+              style={{
+                padding: "10px",
+                width: "150%"
+                }}>
               <Row>
                 <strong> Insert Number of Slots</strong>
               </Row>
 
-              <Row>
                 <input
                   placeholder="Choose number of slots"
                   type="number"
@@ -75,8 +78,8 @@ class SlotAllocation extends Component {
                   value={this.state.numberOfSlots}
                   onChange={this.handleSlots}
                 />
-              </Row>
-              <Row>
+              
+              
                 <DatePicker
                   placeholder="Choose date(s)"
                   sort
@@ -85,8 +88,7 @@ class SlotAllocation extends Component {
                   selected={this.state.date}
                   onChange={this.handleDate}
                 />
-              </Row>
-              <Row>
+             
                 <Button
                   variant="primary"
                   type="submit"
@@ -94,7 +96,7 @@ class SlotAllocation extends Component {
                 >
                   Confrim
                 </Button>
-              </Row>
+             
               </Card>
             </Col>
           </Row>
