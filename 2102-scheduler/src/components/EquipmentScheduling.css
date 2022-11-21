@@ -14,15 +14,3 @@
   border: 1px solid #77ccff;
   background: #77ccff;
 }
-
-#eventTable {
-  position: relative;
-}
-#slotTable {
-  position: absolute;
-  bottom: 0;
-  z-index: 2;
-  border: 1px solid #ccc;
-  background: #eee;
-  overflow-y: scroll;
-}
