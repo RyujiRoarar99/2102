@@ -257,17 +257,17 @@ const ScopesEquipmentOverview = (props) => {
                     <h2>Scopes</h2>
                 </Col>
                 <Col lg={2}>
-                    <FloatingLabel
-                        controlId="floatingSerialNo"
-                        label="Serial No."
-                    >
-                        <Form.Control
-                            type="text"
-                            placeholder="serial no"
-                            value={filteredSerialNo}
-                            onChange={serialNoChangeHandler}
-                        />
-                    </FloatingLabel>
+                <FloatingLabel
+                            controlId="floatingSerialNo"
+                            label="Serial No."
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="serial no"
+                                value={filteredSerialNo}
+                                onChange={serialNoChangeHandler}
+                            />
+                        </FloatingLabel>
                 </Col>
                 <Col lg={2}>
                     <DropdownComponent
