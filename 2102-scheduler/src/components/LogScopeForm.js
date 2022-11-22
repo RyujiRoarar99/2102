@@ -17,6 +17,9 @@ const LogScopeForm = (props) => {
     const [washedBy, setWashedBy] = useState("");
     const [collectedBy, setCollectedBy] = useState("");
     const [circulatedBy, setCirculatedBy] = useState("");
+    const [fluidResult, setFluidResult] = useState("");
+    const [analysis, setAnalysis] = useState("");
+    const [actionTaken, setActionTaken] = useState("");
 
     // const monthChangeHandler = (event) => {
     //     setMonth(event.target.value);
@@ -50,6 +53,18 @@ const LogScopeForm = (props) => {
         setCirculatedBy(event.target.value);
     };
 
+    const fluidResultChangeHandler = (event) => {
+        setFluidResult(event.target.value);
+    };
+
+    const analysisChangeHandler = (event) => {
+        setAnalysis(event.target.value);
+    };
+
+    const actionTakenChangeHandler = (event) => {
+        setActionTaken(event.target.value);
+    };
+
     const scanHandler = () => {
         alert("Scan Equipment!");
     };
@@ -64,6 +79,9 @@ const LogScopeForm = (props) => {
         setWashedBy("");
         setCollectedBy("");
         setCirculatedBy("");
+        setFluidResult("");
+        setAnalysis("");
+        setActionTaken("");
     };
 
     return (
@@ -226,9 +244,9 @@ const LogScopeForm = (props) => {
                         >
                             <Form.Control
                                 type="text"
-                                placeholder="type"
-                                onChange={typeChangeHandler}
-                                value={type}
+                                placeholder="fluid result"
+                                onChange={fluidResultChangeHandler}
+                                value={fluidResult}
                             />
                         </FloatingLabel>
                     </Col>
@@ -243,8 +261,8 @@ const LogScopeForm = (props) => {
                             <Form.Control
                                 type="text"
                                 placeholder="analysis"
-                                onChange={typeChangeHandler}
-                                value={type}
+                                onChange={analysisChangeHandler}
+                                value={analysis}
                             />
                         </FloatingLabel>
                     </Col>
@@ -256,8 +274,8 @@ const LogScopeForm = (props) => {
                             <Form.Control
                                 type="text"
                                 placeholder="action taken"
-                                onChange={typeChangeHandler}
-                                value={type}
+                                onChange={actionTakenChangeHandler}
+                                value={actionTaken}
                             />
                         </FloatingLabel>
                     </Col>
