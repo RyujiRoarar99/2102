@@ -2,7 +2,7 @@
 
 import BreadcrumbComponent from "./BreadcrumbComponent";
 import Container from "react-bootstrap/Container";
-
+import Axios from "axios";
 import React, { Component, useState } from "react";
 // import ReactDOM from "react-dom";
 import { Col, Row } from "reactstrap";
@@ -33,31 +33,47 @@ class EquipmentScheduling extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
         filteredSerialNo: "",
-        calendarEvents: [
-          {
-            title: "3",
-            start: new Date("2022-04-04"),
-            id: "99999998"
-          },
-          {
-            title: "My Favorite Murder",
-            start: new Date("2022-04-05"),
-            id: "99999999"
-          }
-        ],
-        events: [
-          { title: "Scope A1", id: "1" },
-          { title: "Scope A2", id: "2" },
-          { title: "Scope B1", id: "3" },
-          { title: "Scope C3", id: "4" },
-          { title: "Scope A4", id: "5" },
-          { title: "Scope G4", id: "6" },
-          { title: "Scope B5", id: "7" },
-          { title: "Scope D1", id: "8" },
-          { title: "Scope D2", id: "9" }
-        ]
+        scopeSlots: [[]],
+        calendarEvents: [],
+        equipment: []
 
     }
+    //get all slots
+    Axios.post("http://localhost:3001/GetSlotsFromToday").then((response) => {
+        if(response.data.length) {
+          let slots = [];
+          let date = ""
+          response.data.map((slot) => {
+          date = new Date(slot.date);
+          date = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+          slots.push([date,slot.slots,slot.filled])
+          })
+          this.setState({scopeSlots: slots});
+        }
+        else {
+            this.setState({scopeSlots: []});
+        }
+        });
+    //get all equipment
+    Axios.post("http://localhost:3001/GetAllEquipment").then((response) => {
+      if(response.data.length) {
+        this.setState({equipment: response.data})
+      }
+      else {
+        this.setState({equipment: []});
+      }
+      });
+    //Get logged equipment
+    Axios.post("http://localhost:3001/GetLoggedEquipment").then((response) => {
+      if(response.data.length) {
+        let array = []
+        response.data.map((e) => array.push({allDay: true, title: e.type + " " + e.serial_no, start: new Date(e.date_to_sample),id: e.serial_no, data: [e.type,e.id,e.date_to_sample]}))
+        this.setState({calendarEvents: array})
+      }
+      else {
+        this.setState({calendarEvents: []});
+      }
+    });
   }
 
       handleChange = (event) => {
@@ -80,7 +96,22 @@ class EquipmentScheduling extends Component {
           }
         });
       }
-    
+
+      dropController = event => {
+        let data = event.draggedEl.getAttribute('data').split(",")
+        let date = event.dateStr;
+        let urlString = "";
+        if (data[1] === "Scope") {
+          urlString = "http://localhost:3001/InsertScopeLogDate";
+        }
+        else {
+          urlString = "http://localhost:3001/InsertWasherLogDate"
+        }
+        alert("Succesfully Added");
+        Axios.post(urlString,{scope_id: data[0],date: date}).then((response) => {
+        });
+      }
+
       eventClick = eventClick => {
         Alert.fire({
           title: eventClick.event.title,
@@ -107,9 +138,21 @@ class EquipmentScheduling extends Component {
           cancelButtonText: "Close"
         }).then(result => {
           if (result.value) {
+            let data = eventClick.event.extendedProps.data;
+            let date = new Date(data[2]);
+            date = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+            let urlString = "";
+            if (data[0] === "Scope") {
+              urlString = "http://localhost:3001/DeleteScopeLog"
+            }
+            else {
+              urlString = "http://localhost:3001/DeleteWasherLog"
+            }
             eventClick.event.remove(); // It will remove event from the calendar
-            Alert.fire("Removed!", "Equipment has been removed.", "success");
             Alert.fire("Deleted!", "Equipment has been deleted.", "success");
+            Axios.post(urlString,{scope_id: data[1],date: date}).then((response) => {
+              
+            });
           }
         });
       };
@@ -138,7 +181,7 @@ class EquipmentScheduling extends Component {
                     weekends={this.state.calendarWeekends}
                     events={this.state.calendarEvents}
                     eventDrop={this.drop}
-                    // drop={this.drop}
+                    drop={this.dropController}
                     eventReceive={this.eventReceive}
                     eventClick={this.eventClick}
                     // selectable={true}
@@ -176,14 +219,14 @@ class EquipmentScheduling extends Component {
                   <p align="center">
                     <strong> Equipments</strong>
                   </p>
-                  {this.state.events.map(event => (
+                  {this.state.equipment.map(e => (
                     <div
-                      className=" fc-event"
-                      title={event.title}
-                      data={event.id}
-                      key={event.id}
+                      className="fc-event"
+                      title={e.item + " " + e.serial_no}
+                      data={[e.id,e.item]}
+                      key={e.serial_no}
                     >
-                      {event.title}
+                      {e.item + " " + e.serial_no}
                     </div>
                   ))}
                 </div>
@@ -202,47 +245,7 @@ class EquipmentScheduling extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>2022-10-12</td>
-                      <td>3 slots</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>2 slots</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>4 slots</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>4 slots</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>4 slots</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>3 slots</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>2 slots</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>4 slots</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>4 slots</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>4 slots</td>
-                    </tr>
-                    
+                    {this.state.scopeSlots.map((slot)=> <tr><td>{slot[0]}</td><td>{slot[1] - slot[2]}</td></tr>)}
                   </tbody>
                 </Table> 
               </Col>
