@@ -1,6 +1,6 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import Axios from "axios";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -10,36 +10,28 @@ import { faCropSimple } from "@fortawesome/free-solid-svg-icons";
 
 const DailySchedule = (props) => {
     const navigate = useNavigate();
-
-    const scopeQuery = [
-        {
-            id: 1,
-            modelNo: "ModelNo1",
-            scopeType: "ScopeType1",
-            brand: "Brand1",
-            serialNo: "SerialNo1",
-        },
-        {
-            id: 2,
-            modelNo: "ModelNo2",
-            scopeType: "ScopeType2",
-            brand: "Brand2",
-            serialNo: "SerialNo2",
-        },
-    ];
-
-    const washerQuery = [
-        {
-            id: 1,
-            modelNo: "AERModelNo1",
-            serialNo: "AERSerialNo2",
-        },
-        {
-            id: 2,
-            modelNo: "AERModelNo2",
-            serialNo: "AERSerialNo2",
-        },
-    ];
+    const [scopeQuery, setScopeQuery] = useState([]);
+    const [washerQuery, setWasherQuery] = useState([]);
+    useEffect(()=> {
+        //get all equipment
+        Axios.post("http://localhost:3001/GetScopeToday").then((response) => {
+        if(response.data.length) {
+            setScopeQuery(response.data);
+        }
+        else {
+            setScopeQuery([]);
+        }
+        });
+        //get all equipment
+        Axios.post("http://localhost:3001/GetWasherToday").then((response) => {
+        if(response.data.length) {
+            setWasherQuery(response.data);
+        }
+        else {
+            setWasherQuery([]);
+        }
+        });
+    },[])
 
     const clickHandler = (event) => {
         const equipmentTable =
@@ -101,12 +93,12 @@ const DailySchedule = (props) => {
                 </thead>
                 <tbody>
                     {scopeQuery.map((tuple, index) => (
-                        <tr id={tuple.serialNo}>
+                        <tr id={tuple.serial_no}>
                             <td className="col-1">{index + 1}</td>
-                            <td className="col-2">{tuple.modelNo}</td>
+                            <td className="col-2">{tuple.model_no}</td>
                             {/* <td className="col-2">{tuple.scopeType}</td> */}
                             <td className="col-3">{tuple.brand}</td>
-                            <td className="col-2">{tuple.serialNo}</td>
+                            <td className="col-2">{tuple.serial_no}</td>
                             <td className="text-center col-2">
                                 <Button
                                     variant="success"
@@ -149,10 +141,10 @@ const DailySchedule = (props) => {
                 </thead>
                 <tbody>
                     {washerQuery.map((tuple, index) => (
-                        <tr id={tuple.serialNo}>
+                        <tr id={tuple.serial_no}>
                             <td className="col-1">{index + 1}</td>
-                            <td>{tuple.modelNo}</td>
-                            <td>{tuple.serialNo}</td>
+                            <td>{tuple.model_no}</td>
+                            <td>{tuple.serial_no}</td>
                             <td className="text-center col-2">
                                 <Button
                                     variant="success"

@@ -31,6 +31,82 @@ app.post('/login',(req,res) => {
         }
     );
 })
+//----------------------------------------------------------- MAIN PAGE TO SEE SCHEDULE -----------------------------------------------------------------
+app.post('/GetScopeToday',(req,res) => {
+    db.query(
+        "SELECT b.model_no, b.brand, b.serial_no FROM scope_sampling a INNER JOIN scope b ON a.scope_id = b.scope_id WHERE CAST(a.date_to_sample AS DATE) > CAST(CURDATE() AS DATE) ",
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
+
+app.post('/GetWasherToday',(req,res) => {
+    db.query(
+        "SELECT b.model_no,b.serial_no FROM washer_sampling a INNER JOIN washer b ON a.washer_id = b.washer_id WHERE CAST(a.date_to_sample AS DATE) > CAST(CURDATE() AS DATE) ",
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
+
+
+//----------------------------------------------------------- LOGGING RECORDS -----------------------------------------------------------------
+//Get day for all scopes per day
+app.post('/LogScope',(req,res) => {
+    const serial_no = req.body.serial_no;
+    const washedby = req.body.washedby;
+    const collectedBy = req.body.collectedBy;
+    const circulatedBy = req.body.circulatedBy;
+    const fluidResult = req.body.fluidResult;
+    const analysis = req.body.analysis;
+    const actionTaken = req.body.actionTaken;
+    const date_of_collection = req.body.date_of_collection;
+    const date2 = req.body.date2;
+        db.query(
+        "INSERT INTO scope_sampled (date_of_collection,scope_id,washed_by,collected_by,circulated_by,logged_by,date_of_result,fluid_result,analysis,action_taken) VALUES(?,?,?,?,?,'admin',?,?,?,?)",
+        [date_of_collection,serial_no,washedby,collectedBy,circulatedBy,date2,fluidResult,analysis,actionTaken]
+        ,(err,result) => {
+            if(err) {
+                console.log(err);
+            }
+        }) 
+    }
+)
+
+//Get day for all scopes per day
+app.post('/LogWasher',(req,res) => {
+    db.query(
+        "SELECT * FROM no_of_sampling_per_day",
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
 
 //----------------------------------------------------------- SLOTS PER DAY -----------------------------------------------------------------
 //Get day for all scopes per day
@@ -164,7 +240,7 @@ app.post('/InsertWasherLogDate',(req,res) => {
     const scope_id = req.body.scope_id;
     const date = req.body.date;
     db.query(
-        "INSERT INTO washer_sampling (scope_id,date_to_sample) VALUES(?,?)",
+        "INSERT INTO washer_sampling (washer_id,date_to_sample) VALUES(?,?)",
         [scope_id,date],
         (err, result) => {
             if(err) {

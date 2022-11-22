@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Axios from "axios";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Button from "react-bootstrap/Button";
@@ -10,6 +10,7 @@ import Card from "react-bootstrap/Card";
 const LogScopeForm = (props) => {
     // const [month, setMonth] = useState("");
     const [date, setDate] = useState("");
+    const [date2, setDate2] = useState("");
     const [brand, setBrand] = useState(props.data.brand);
     const [type, setType] = useState(props.data.scopeType);
     const [modelNo, setModelNo] = useState(props.data.modelNo);
@@ -24,6 +25,15 @@ const LogScopeForm = (props) => {
     // const monthChangeHandler = (event) => {
     //     setMonth(event.target.value);
     // };
+    function submit() {
+        //send data
+        Axios.post("http://localhost:3001/LogScope",
+        {serial_no:serialNo,date_of_collection:date,washedby:washedBy,collectedBy:collectedBy,circulatedBy:circulatedBy,fluidResult:fluidResult,analysis:analysis,actionTaken:actionTaken,date2: date2}).then((response) => {
+        });
+    }
+    const dateChangeHandler2 = (event) => {
+        setDate2(event.target.value);
+    };
 
     const dateChangeHandler = (event) => {
         setDate(event.target.value);
@@ -232,8 +242,8 @@ const LogScopeForm = (props) => {
                             <Form.Control
                                 type="date"
                                 placeholder="date of result"
-                                onChange={dateChangeHandler} // CHANGE
-                                value={date}
+                                onChange={dateChangeHandler2} // CHANGE
+                                value={date2}
                             />
                         </FloatingLabel>
                     </Col>
@@ -298,6 +308,7 @@ const LogScopeForm = (props) => {
                             className="float-end"
                             variant="success"
                             type="submit"
+                            onClick={submit}
                         >
                             Submit
                         </Button>
