@@ -66,7 +66,35 @@ app.post('/GetWasherToday',(req,res) => {
     );
 })
 
+app.post('/DeleteScopeToday',(req,res) => {
+    const date = req.body.date;
+    const serial_no = req.body.serial_no;
 
+    db.query(
+        "DELETE FROM scope_sampling WHERE cast(date_to_sample as Date) = cast(curdate() as Date) AND scope_id = (select scope_id from scope where serial_no = ?)",
+        [serial_no],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+        }
+    );
+})
+
+app.post('/DeleteWasherToday',(req,res) => {
+    const date = req.body.date;
+    const serial_no = req.body.serial_no;
+
+    db.query(
+        "DELETE FROM washer_sampling WHERE cast(date_to_sample as Date) = cast(curdate() as Date) AND washer_id = (select washer_id from washer where serial_no = ?)",
+        [serial_no],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+        }
+    );
+})
 //----------------------------------------------------------- LOGGING RECORDS -----------------------------------------------------------------
 //Get day for all scopes per day
 app.post('/LogScope',(req,res) => {

@@ -33,6 +33,43 @@ const DailySchedule = (props) => {
         });
     },[])
 
+    const clickHandler2 = (event) => {
+        const equipmentTable =
+            event.target.parentNode.parentNode.parentNode.parentNode.id;
+        const rowDataString = event.target.parentNode.parentNode.innerText;
+        const rowDataArray = rowDataString.split("\t");
+        let date = new Date();
+        date = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+        let rowDataObject;
+
+        if (rowDataString.match(/\t/g).length === 4) {
+            rowDataObject = {
+                id: rowDataArray[0],
+                modelNo: rowDataArray[1],
+                // scopeType: rowDataArray[2],
+                brand: rowDataArray[2],
+                serialNo: rowDataArray[3],
+                aerModelNo: "",
+                aerSerialNo: "",
+            };
+            //get all equipment
+            Axios.post("http://localhost:3001/DeleteScopeToday",{date: date,serial_no:rowDataObject.serialNo}).then((response) => {});
+            window.location.reload();
+        } else {
+            rowDataObject = {
+                id: rowDataArray[0],
+                modelNo: "",
+                serialNo: "",
+                // scopeType: "",
+                brand: "",
+                aerModelNo: rowDataArray[1],
+                aerSerialNo: rowDataArray[2],
+            };
+            Axios.post("http://localhost:3001/DeleteWasherToday",{date: date,serial_no:rowDataObject.aerSerialNo}).then((response) => {});
+            window.location.reload();
+        }
+    }
+
     const clickHandler = (event) => {
         const equipmentTable =
             event.target.parentNode.parentNode.parentNode.parentNode.id;
@@ -114,7 +151,7 @@ const DailySchedule = (props) => {
                                     as="input"
                                     type="button"
                                     value="Cancel"
-                                    onClick={clickHandler}
+                                    onClick={clickHandler2}
                                     size="sm"
                                 />
                             </td>
@@ -160,7 +197,7 @@ const DailySchedule = (props) => {
                                     as="input"
                                     type="button"
                                     value="Cancel"
-                                    onClick={clickHandler}
+                                    onClick={clickHandler2}
                                     size="sm"
                                 />
                             </td>
