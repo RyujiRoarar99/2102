@@ -34,7 +34,7 @@ app.post('/login',(req,res) => {
 //----------------------------------------------------------- MAIN PAGE TO SEE SCHEDULE -----------------------------------------------------------------
 app.post('/GetScopeToday',(req,res) => {
     db.query(
-        "SELECT b.model_no, b.brand, b.serial_no FROM scope_sampling a INNER JOIN scope b ON a.scope_id = b.scope_id WHERE CAST(a.date_to_sample AS DATE) > CAST(CURDATE() AS DATE) ",
+        "SELECT b.model_no, b.brand, b.serial_no FROM scope_sampling a INNER JOIN scope b ON a.scope_id = b.scope_id WHERE CAST(a.date_to_sample AS DATE) = CAST(CURDATE() AS DATE) ",
         (err, result) => {
             if(err) {
                 console.log(err);
@@ -51,7 +51,7 @@ app.post('/GetScopeToday',(req,res) => {
 
 app.post('/GetWasherToday',(req,res) => {
     db.query(
-        "SELECT b.model_no,b.serial_no FROM washer_sampling a INNER JOIN washer b ON a.washer_id = b.washer_id WHERE CAST(a.date_to_sample AS DATE) > CAST(CURDATE() AS DATE) ",
+        "SELECT b.model_no,b.serial_no FROM washer_sampling a INNER JOIN washer b ON a.washer_id = b.washer_id WHERE CAST(a.date_to_sample AS DATE) = CAST(CURDATE() AS DATE) ",
         (err, result) => {
             if(err) {
                 console.log(err);
