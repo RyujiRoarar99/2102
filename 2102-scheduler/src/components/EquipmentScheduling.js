@@ -234,7 +234,7 @@ class EquipmentScheduling extends Component {
                 className="mt-2"
                   style={{
                     display:"block",
-                    width: "70%",
+                    width: "90%",
                     height: "40%",
                     maxHeight: "100%"
                   }}>
