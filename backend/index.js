@@ -34,7 +34,7 @@ app.post('/login',(req,res) => {
 //----------------------------------------------------------- MAIN PAGE TO SEE SCHEDULE -----------------------------------------------------------------
 app.post('/GetScopeToday',(req,res) => {
     db.query(
-        "SELECT b.model_no, b.brand, b.serial_no FROM scope_sampling a INNER JOIN scope b ON a.scope_id = b.scope_id WHERE CAST(a.date_to_sample AS DATE) = CAST(CURDATE() AS DATE) ",
+        "SELECT b.model_no, b.brand, b.serial_no FROM scope_sampling a INNER JOIN scope b ON a.scope_id = b.scope_id WHERE CAST(a.date_to_sample AS DATE) = CAST(DATE(CONVERT_TZ(NOW(),'MST7MDT','+08:00')) AS DATE) ",
         (err, result) => {
             if(err) {
                 console.log(err);
@@ -51,7 +51,7 @@ app.post('/GetScopeToday',(req,res) => {
 
 app.post('/GetWasherToday',(req,res) => {
     db.query(
-        "SELECT b.model_no,b.serial_no FROM washer_sampling a INNER JOIN washer b ON a.washer_id = b.washer_id WHERE CAST(a.date_to_sample AS DATE) = CAST(CURDATE() AS DATE) ",
+        "SELECT b.model_no,b.serial_no FROM washer_sampling a INNER JOIN washer b ON a.washer_id = b.washer_id WHERE CAST(a.date_to_sample AS DATE) = CAST(DATE(CONVERT_TZ(NOW(),'MST7MDT','+08:00')) AS DATE) ",
         (err, result) => {
             if(err) {
                 console.log(err);
@@ -71,7 +71,7 @@ app.post('/DeleteScopeToday',(req,res) => {
     const serial_no = req.body.serial_no;
 
     db.query(
-        "DELETE FROM scope_sampling WHERE cast(date_to_sample as Date) = cast(curdate() as Date) AND scope_id = (select scope_id from scope where serial_no = ?)",
+        "DELETE FROM scope_sampling WHERE cast(date_to_sample as Date) = cast(DATE(CONVERT_TZ(NOW(),'MST7MDT','+08:00')) as Date) AND scope_id = (select scope_id from scope where serial_no = ?)",
         [serial_no],
         (err, result) => {
             if(err) {
@@ -86,7 +86,7 @@ app.post('/DeleteWasherToday',(req,res) => {
     const serial_no = req.body.serial_no;
 
     db.query(
-        "DELETE FROM washer_sampling WHERE cast(date_to_sample as Date) = cast(curdate() as Date) AND washer_id = (select washer_id from washer where serial_no = ?)",
+        "DELETE FROM washer_sampling WHERE cast(date_to_sample as Date) = cast(DATE(CONVERT_TZ(NOW(),'MST7MDT','+08:00')) as Date) AND washer_id = (select washer_id from washer where serial_no = ?)",
         [serial_no],
         (err, result) => {
             if(err) {
@@ -179,7 +179,7 @@ app.post('/UpdateScopePerDay',(req,res) => {
 //Get Number of slots from today
 app.post('/GetSlotsFromToday',(req,res) => {
     db.query(
-        "SELECT * FROM no_of_sampling_per_day WHERE no_of_sampling_per_day.date >= CURDATE()",
+        "SELECT * FROM no_of_sampling_per_day WHERE no_of_sampling_per_day.date >= DATE(CONVERT_TZ(NOW(),'MST7MDT','+08:00'))",
         (err, result) => {
             if(err) {
                 console.log(err);
@@ -270,6 +270,21 @@ app.post('/InsertWasherLogDate',(req,res) => {
     db.query(
         "INSERT INTO washer_sampling (washer_id,date_to_sample) VALUES(?,?)",
         [scope_id,date],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+        }
+    );
+})
+
+//Update The number of Scope Slots
+app.post('/AddScopeFilled',(req,res) => {
+    const filled = req.body.filled;
+    const date = req.body.date;
+    db.query(
+        "UPDATE no_of_sampling_per_day SET filled = ? WHERE cast(no_of_sampling_per_day.date as Date) = cast(? as Date)",
+        [filled,date],
         (err, result) => {
             if(err) {
                 console.log(err);

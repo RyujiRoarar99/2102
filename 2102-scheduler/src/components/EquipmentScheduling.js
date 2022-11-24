@@ -100,18 +100,57 @@ class EquipmentScheduling extends Component {
       dropController = event => {
         let data = event.draggedEl.getAttribute('data').split(",")
         let date = event.dateStr;
-        let urlString = "";
-        if (data[1] === "Scope") {
-          urlString = "http://localhost:3001/InsertScopeLogDate";
+        let dateExist = false;
+        let index = 0;
+        //Find Whether slot exist
+        for (var i in this.state.scopeSlots) {
+          console.log(this.state.scopeSlots[i][0]);
+          if (this.state.scopeSlots[i][0] === date)
+          {
+            dateExist = true;
+            break;
+          }
+          index += 1;
+        }
+
+        //Execute when there is a slot
+        if (dateExist) {
+          //Check if there is any more slots
+          if (this.state.scopeSlots[index][1] !== this.state.scopeSlots[index][2]) {
+            let urlString = "";
+            // 1. Make a shallow copy of the items
+            let scopeSlots = [...this.state.scopeSlots];
+            // 2. Make a shallow copy of the item you want to mutate
+            let item = [...scopeSlots[index]];
+            // 3. Replace the property you're intested in
+            item[2] += 1;
+            // 4. Put it back into our array. N.B. we *are* mutating the array here, 
+            //    but that's why we made a copy first
+            scopeSlots[index] = item;
+            // 5. Set the state to our new copy
+            this.setState({scopeSlots});
+            if (data[1] === "Scope") {
+              urlString = "http://localhost:3001/InsertScopeLogDate";
+            }
+            else {
+              urlString = "http://localhost:3001/InsertWasherLogDate"
+            }
+            alert("Succesfully Added");
+            Axios.post("http://localhost:3001/AddScopeFilled",{filled: item[2],date: date}).then((response) => {});
+            Axios.post(urlString,{scope_id: data[0],date: date}).then((response) => {});
+          }
+          else {
+            alert("Slot is full! Either delete a scope or expand the number of slots!")
+            event.remove();
+          }
         }
         else {
-          urlString = "http://localhost:3001/InsertWasherLogDate"
+          alert("No slot assigned for this date! Please go to slot allocation to allocate a slot!");
+          event.remove();
         }
-        alert("Succesfully Added");
-        Axios.post(urlString,{scope_id: data[0],date: date}).then((response) => {
-        });
       }
 
+      //Delete
       eventClick = eventClick => {
         Alert.fire({
           title: eventClick.event.title,
@@ -141,6 +180,27 @@ class EquipmentScheduling extends Component {
             let data = eventClick.event.extendedProps.data;
             let date = new Date(data[2]);
             date = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+            let index = 0;
+            //Find index for scopeslots
+            for (var i in this.state.scopeSlots) {
+              console.log(this.state.scopeSlots[i][0]);
+              if (this.state.scopeSlots[i][0] === date)
+              {
+                break;
+              }
+              index += 1;
+            }
+            // 1. Make a shallow copy of the items
+            let scopeSlots = [...this.state.scopeSlots];
+            // 2. Make a shallow copy of the item you want to mutate
+            let item = [...scopeSlots[index]];
+            // 3. Replace the property you're intested in
+            item[2] -= 1;
+            // 4. Put it back into our array. N.B. we *are* mutating the array here, 
+            //    but that's why we made a copy first
+            scopeSlots[index] = item;
+            // 5. Set the state to our new copy
+            this.setState({scopeSlots});
             let urlString = "";
             if (data[0] === "Scope") {
               urlString = "http://localhost:3001/DeleteScopeLog"
@@ -150,9 +210,9 @@ class EquipmentScheduling extends Component {
             }
             eventClick.event.remove(); // It will remove event from the calendar
             Alert.fire("Deleted!", "Equipment has been deleted.", "success");
-            Axios.post(urlString,{scope_id: data[1],date: date}).then((response) => {
-              
-            });
+            Axios.post("http://localhost:3001/AddScopeFilled",{filled: item[2],date: date}).then((response) => {});
+            Axios.post(urlString,{scope_id: data[1],date: date}).then((response) => {});
+            console.log(this.state.scopeSlots);
           }
         });
       };
