@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Axios from "axios";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Button from "react-bootstrap/Button";
@@ -14,6 +14,10 @@ const LogWasherForm = (props) => {
     const [serialNo, setSerialNo] = useState(props.data.aerSerialNo);
     const [collectedBy, setCollectedBy] = useState("");
     const [circulatedBy, setCirculatedBy] = useState("");
+    const [fluidDate, setFluidDate] = useState("");
+    const [fluidResult, setFluidResult] = useState("");
+    const [analysis, setAnalysis] = useState("");
+    const [actionTaken, setActionTaken] = useState("");
 
     // const monthChangeHandler = (event) => {
     //     setMonth(event.target.value);
@@ -34,6 +38,22 @@ const LogWasherForm = (props) => {
         setCollectedBy(event.target.value);
     };
 
+    const fluidDateChangeHandler = (event) => {
+        setFluidDate(event.target.value);
+    };
+
+    const fluidResultChangeHandler = (event) => {
+        setFluidResult(event.target.value);
+    };
+
+    const analysisChangeHandler = (event) => {
+        setAnalysis(event.target.value);
+    };
+
+    const actionTakenChangeHandler = (event) => {
+        setActionTaken(event.target.value);
+    };
+
     const circulatedByChangeHandler = (event) => {
         setCirculatedBy(event.target.value);
     };
@@ -49,7 +69,19 @@ const LogWasherForm = (props) => {
         setSerialNo("");
         setCollectedBy("");
         setCirculatedBy("");
+        setFluidDate("");
+        setFluidResult("");
+        setAnalysis("");
+        setActionTaken("");
     };
+
+    const submitHandler = () => {
+        //send data
+        Axios.post("http://localhost:3001/LogWasher",
+        {serial_no:serialNo,date_of_collection:date,collectedBy:collectedBy,circulatedBy:circulatedBy,fluidResult:fluidResult,analysis:analysis,actionTaken:actionTaken,date2: fluidDate}).then((response) => {
+
+        });
+    }
 
     return (
         <Card body>
@@ -155,8 +187,8 @@ const LogWasherForm = (props) => {
                             <Form.Control
                                 type="date"
                                 placeholder="date of result"
-                                onChange={dateChangeHandler} // CHANGE
-                                value={date}
+                                onChange={fluidDateChangeHandler} // CHANGE
+                                value={fluidDate}
                             />
                         </FloatingLabel>
                     </Col>
@@ -168,8 +200,8 @@ const LogWasherForm = (props) => {
                             <Form.Control
                                 type="text"
                                 placeholder="type"
-                                onChange={circulatedByChangeHandler}
-                                value={circulatedBy}
+                                onChange={fluidResultChangeHandler}
+                                value={fluidResult}
                             />
                         </FloatingLabel>
                     </Col>
@@ -184,8 +216,8 @@ const LogWasherForm = (props) => {
                             <Form.Control
                                 type="text"
                                 placeholder="analysis"
-                                onChange={circulatedByChangeHandler}
-                                value={circulatedBy}
+                                onChange={analysisChangeHandler}
+                                value={analysis}
                             />
                         </FloatingLabel>
                     </Col>
@@ -197,8 +229,8 @@ const LogWasherForm = (props) => {
                             <Form.Control
                                 type="text"
                                 placeholder="action taken"
-                                onChange={circulatedByChangeHandler}
-                                value={circulatedBy}
+                                onChange={actionTakenChangeHandler}
+                                value={actionTaken}
                             />
                         </FloatingLabel>
                     </Col>
@@ -220,6 +252,7 @@ const LogWasherForm = (props) => {
                             className="float-end"
                             variant="success"
                             type="submit"
+                            onClick={submitHandler}
                         >
                             Submit
                         </Button>
