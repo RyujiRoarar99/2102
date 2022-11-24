@@ -216,6 +216,26 @@ app.post('/GetAllEquipment',(req,res) => {
 })
 
 //Get Number of slots from today
+app.post('/GetAllEquipmentFiltered',(req,res) => {
+    const filter = req.body.filterSerial;
+    db.query(
+        "SELECT a.scope_id as id, a.serial_no, 'Scope' as item FROM scope a WHERE serial_no like concat(?, '%') UNION SELECT b.washer_id as id, b.serial_no, 'Washer' as item FROM washer b WHERE serial_no like concat(?, '%')",
+        [filter,filter],
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                //sends the result
+                if(result) {
+                    res.send(result);
+                }
+            }
+        }
+    );
+})
+
+//Get Number of slots from today
 app.post('/GetLoggedEquipment',(req,res) => {
     db.query(
         "select scope.scope_id as id, scope.serial_no,scope_sampling.date_to_sample, 'Scope' as type FROM scope INNER JOIN scope_sampling ON scope.scope_id = scope_sampling.scope_id UNION select washer.washer_id as id, washer.serial_no,washer_sampling.date_to_sample, 'Washer' as type FROM washer INNER JOIN washer_sampling ON washer.washer_id = washer_sampling.washer_id",

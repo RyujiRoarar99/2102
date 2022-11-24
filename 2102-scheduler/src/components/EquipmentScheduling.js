@@ -63,6 +63,7 @@ class EquipmentScheduling extends Component {
         this.setState({equipment: []});
       }
       });
+
     //Get logged equipment
     Axios.post("http://localhost:3001/GetLoggedEquipment").then((response) => {
       if(response.data.length) {
@@ -77,8 +78,16 @@ class EquipmentScheduling extends Component {
   }
 
       handleChange = (event) => {
-        event.preventDefault();
         this.setState({"filteredSerialNo": event.target.value});
+        //get all equipment
+        Axios.post("http://localhost:3001/GetAllEquipmentFiltered", {filterSerial: event.target.value}).then((response) => {
+          if(response.data.length) {
+            this.setState({equipment: response.data})
+          }
+          else {
+            this.setState({equipment: []});
+          }
+          });
       }
     
     
