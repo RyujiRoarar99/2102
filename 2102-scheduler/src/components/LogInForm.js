@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom';
-import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 import Hospital from "../assets/hospital.jpg";
-
 
 import { Form, Row, Col, Card, Button, Container } from "react-bootstrap";
 
@@ -12,21 +11,32 @@ const LogInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   //checks whether user has successfully logged in
   const [loginStatus, setLoginStatus] = useState("");
 
   //login event
-  const login = event => {
+  const login = (event) => {
     event.preventDefault();
 
     Axios.post("http://localhost:3001/login", {
       username: username,
       password: password,
     }).then((response) => {
-      if(response.data.length) {
-        navigate('/Home');
-      }
-      else {
+      if (response.data.length) {
+        navigate("/Home");
+      } else {
         setLoginStatus("Invalid Username/Password!"); //Jeriel change message accordingly
       }
     });
@@ -42,33 +52,67 @@ const LogInForm = () => {
         </Row>
 
         <Card body>
-          <Form className="rounded p-4 p-sm-3">
+          <Form
+            className="rounded p-4 p-sm-3"
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+          >
             <Row className="mb-3">
               <Form.Group controlId="formID">
                 <Form.Label>ID No.</Form.Label>
-                <Form.Control type="id" placeholder="Enter ID" 
-                onChange={(e)=> {
-                  setUsername(e.target.value);
-                }}/>
+                <Form.Control
+                  required
+                  type="id"
+                  placeholder="Enter ID"
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter ID
+                </Form.Control.Feedback>
               </Form.Group>
             </Row>
 
             <Row className="mb-3">
               <Form.Group controlId="formPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter Password"
-                onChange={(e)=> {
-                  setPassword(e.target.value);
-                }} />
+                <Form.Control
+                  required
+                  type="password"
+                  placeholder="Enter Password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter password
+                </Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <Button href="/Home" variant="primary" type="submit" onClick={login}>
+<Row>
+            <Button
+              href="/Home"
+              variant="primary"
+              type="submit"
+              onClick={login}
+            >
               Log In
             </Button>
-            <Button href="/RegisterPage" variant="white" type="submit">
+            </Row>
+
+            <Row>
+            <Button 
+            href="/RegisterPage" 
+            variant="white" 
+            type="submit">
               Register Account
             </Button>
+            </Row>
           </Form>
         </Card>
       </Col>

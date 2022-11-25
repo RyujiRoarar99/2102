@@ -1,13 +1,25 @@
 import React, { useState } from "react";
 import Hospital from "../assets/hospital.jpg";
 
-
 import { Form, Row, Col, Card, Button, Container } from "react-bootstrap";
 
 const RegisterForm = () => {
+  //storing values
+  const [values, setValues] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  //"Validation" pretty sure there's validation libraries can works better
-  //Need to work on event when everything is valid
+  const set = (name) => {
+    return ({ target: { value } }) => {
+      setValues((oldValues) => ({ ...oldValues, [name]: value }));
+    };
+  };
+
+  //validation
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
@@ -39,7 +51,13 @@ const RegisterForm = () => {
             <Row className="mb-3">
               <Form.Group as={Col} md="6" controlId="formID">
                 <Form.Label>ID No.</Form.Label>
-                <Form.Control required type="id" placeholder="Enter ID" />
+                <Form.Control
+                  required
+                  type="id"
+                  placeholder="Enter ID"
+                  value={values.id}
+                  onChange={set("id")}
+                />
                 <Form.Control.Feedback type="invalid">
                   Please provide valid ID
                 </Form.Control.Feedback>
@@ -53,6 +71,8 @@ const RegisterForm = () => {
                   required
                   type="firstname"
                   placeholder="Enter First Name"
+                  value={values.firstName}
+                  onChange={set("firstName")}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please provide your first name
@@ -65,6 +85,8 @@ const RegisterForm = () => {
                   required
                   type="lastname"
                   placeholder="Enter Last Name"
+                  value={values.lastName}
+                  onChange={set("lastName")}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please provide your last name
@@ -79,6 +101,8 @@ const RegisterForm = () => {
                   required
                   type="password"
                   placeholder="Enter Password"
+                  value={values.password}
+                  onChange={set("password")}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please provide a password
@@ -89,8 +113,10 @@ const RegisterForm = () => {
                 <Form.Label>Confrim Password</Form.Label>
                 <Form.Control
                   required
-                  type="confirmpassword"
+                  type="password"
                   placeholder="Confirm Password"
+                  value={values.confirmPassword}
+                  onChange={set("confirmPassword")}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please provide the same password
@@ -98,13 +124,22 @@ const RegisterForm = () => {
               </Form.Group>
             </Row>
 
+            <Row>
             <Button variant="primary" type="submit">
               Register
             </Button>
-
-            <Button href="/" variant="white" type="submit">
-              Back to Login
-            </Button>
+            </Row>
+            <Row>
+              <Button
+                href="/"
+                variant="white"
+                type="submit"
+                className="justify-content-center"
+                
+              >
+                Back to Login
+              </Button>
+            </Row>
           </Form>
         </Card>
       </Col>
