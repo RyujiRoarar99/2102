@@ -8,8 +8,10 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
 const LogScopeForm = (props) => {
+    var now = new Date();
+    let today = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
     // const [month, setMonth] = useState("");
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(today);
     const [date2, setDate2] = useState("");
     const [brand, setBrand] = useState(props.data.brand);
     const [type, setType] = useState(props.data.scopeType);
@@ -22,8 +24,8 @@ const LogScopeForm = (props) => {
     const [analysis, setAnalysis] = useState("");
     const [actionTaken, setActionTaken] = useState("");
 
-    let today = new Date().toISOString().slice(0, 10);
-
+    
+    
     function submit() {
         //send data
         Axios.post("http://localhost:3001/LogScope", {

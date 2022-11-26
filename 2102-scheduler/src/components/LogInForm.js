@@ -93,6 +93,7 @@ const LogInForm = () => {
                                     Enter password
                                 </Form.Control.Feedback>
                             </Form.Group>
+                            <p style={{color: "red"}}>{loginStatus}</p>
                         </Row>
 
                         <Row>

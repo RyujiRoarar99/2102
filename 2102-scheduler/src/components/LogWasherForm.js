@@ -8,8 +8,10 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
 const LogWasherForm = (props) => {
+    var now = new Date();
+    let today = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
     // const [month, setMonth] = useState("");
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(today);
     const [modelNo, setModelNo] = useState(props.data.aerModelNo);
     const [serialNo, setSerialNo] = useState(props.data.aerSerialNo);
     const [collectedBy, setCollectedBy] = useState("");
@@ -18,8 +20,6 @@ const LogWasherForm = (props) => {
     const [fluidResult, setFluidResult] = useState("");
     const [analysis, setAnalysis] = useState("");
     const [actionTaken, setActionTaken] = useState("");
-
-    let today = new Date().toISOString().slice(0, 10);
 
     // const monthChangeHandler = (event) => {
     //     setMonth(event.target.value);

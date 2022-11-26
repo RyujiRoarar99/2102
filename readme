@@ -1,0 +1,14 @@
+How to run the program:
+
+Backend: 
+
+Step 1. Open Terminal
+Step 2. Change Directory to the file backend
+Step 3. type "npm start"
+
+Frontend:
+Step 4. Open another Terminal
+Step 5. Change Directory to 2102-scheduler
+Step 6. type "npm run start"
+
+Step 7. Open up localhost:3000 on browser
