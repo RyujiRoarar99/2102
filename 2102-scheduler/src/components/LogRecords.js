@@ -18,7 +18,7 @@ const LogRecords = () => {
         stateEquipment = state.equipment;
     } catch (err) {}
 
-    console.log(stateEquipment);
+    // console.log(stateEquipment);
 
     const [equipmentSelected, setEquipmentSelected] = useState(stateEquipment);
 

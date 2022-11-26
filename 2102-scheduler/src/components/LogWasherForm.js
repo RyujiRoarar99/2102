@@ -19,13 +19,15 @@ const LogWasherForm = (props) => {
     const [analysis, setAnalysis] = useState("");
     const [actionTaken, setActionTaken] = useState("");
 
+    let today = new Date().toISOString().slice(0, 10);
+
     // const monthChangeHandler = (event) => {
     //     setMonth(event.target.value);
     // };
 
-    const dateChangeHandler = (event) => {
-        setDate(event.target.value);
-    };
+    // const dateChangeHandler = (event) => {
+    //     setDate(event.target.value);
+    // };
 
     const modelNoChangeHandler = (event) => {
         setModelNo(event.target.value);
@@ -77,11 +79,17 @@ const LogWasherForm = (props) => {
 
     const submitHandler = () => {
         //send data
-        Axios.post("http://localhost:3001/LogWasher",
-        {serial_no:serialNo,date_of_collection:date,collectedBy:collectedBy,circulatedBy:circulatedBy,fluidResult:fluidResult,analysis:analysis,actionTaken:actionTaken,date2: fluidDate}).then((response) => {
-
-        });
-    }
+        Axios.post("http://localhost:3001/LogWasher", {
+            serial_no: serialNo,
+            date_of_collection: date,
+            collectedBy: collectedBy,
+            circulatedBy: circulatedBy,
+            fluidResult: fluidResult,
+            analysis: analysis,
+            actionTaken: actionTaken,
+            date2: fluidDate,
+        }).then((response) => {});
+    };
 
     return (
         <Card body>
@@ -109,8 +117,8 @@ const LogWasherForm = (props) => {
                             <Form.Control
                                 type="date"
                                 placeholder="date of collection"
-                                onChange={dateChangeHandler}
-                                value={date}
+                                value={today}
+                                disabled
                             />
                         </FloatingLabel>
                     </Col>
@@ -150,30 +158,32 @@ const LogWasherForm = (props) => {
 
                 <Row className="mb-4">
                     <Col>
-                        <FloatingLabel
-                            controlId="floatingInputGrid"
-                            label="Collected By"
+                        <Form.Label>Collected By</Form.Label>
+                        <Form.Select
+                            value={collectedBy}
+                            onChange={(e) => setCollectedBy(e.target.value)}
                         >
-                            <Form.Control
-                                type="text"
-                                placeholder="collected by"
-                                onChange={collectedByChangeHandler}
-                                value={collectedBy}
-                            />
-                        </FloatingLabel>
+                            <option>Select Name</option>
+                            <option value="Tan Mei Mei">Tan Mei Mei</option>
+                            <option value="Chong Foo Meng">
+                                Chong Foo Meng
+                            </option>
+                            <option value="Mandy Teo">Mandy Teo</option>
+                        </Form.Select>
                     </Col>
                     <Col>
-                        <FloatingLabel
-                            controlId="floatingInputGrid"
-                            label="Circulated by"
+                        <Form.Label>Circulated By</Form.Label>
+                        <Form.Select
+                            value={circulatedBy}
+                            onChange={(e) => setCirculatedBy(e.target.value)}
                         >
-                            <Form.Control
-                                type="text"
-                                placeholder="ciruclated by"
-                                onChange={circulatedByChangeHandler}
-                                value={circulatedBy}
-                            />
-                        </FloatingLabel>
+                            <option>Select Name</option>
+                            <option value="Tan Mei Mei">Tan Mei Mei</option>
+                            <option value="Chong Foo Meng">
+                                Chong Foo Meng
+                            </option>
+                            <option value="Mandy Teo">Mandy Teo</option>
+                        </Form.Select>
                     </Col>
                 </Row>
 

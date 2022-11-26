@@ -22,22 +22,29 @@ const LogScopeForm = (props) => {
     const [analysis, setAnalysis] = useState("");
     const [actionTaken, setActionTaken] = useState("");
 
-    // const monthChangeHandler = (event) => {
-    //     setMonth(event.target.value);
-    // };
+    let today = new Date().toISOString().slice(0, 10);
+
     function submit() {
         //send data
-        Axios.post("http://localhost:3001/LogScope",
-        {serial_no:serialNo,date_of_collection:date,washedby:washedBy,collectedBy:collectedBy,circulatedBy:circulatedBy,fluidResult:fluidResult,analysis:analysis,actionTaken:actionTaken,date2: date2}).then((response) => {
-        });
+        Axios.post("http://localhost:3001/LogScope", {
+            serial_no: serialNo,
+            date_of_collection: date,
+            washedby: washedBy,
+            collectedBy: collectedBy,
+            circulatedBy: circulatedBy,
+            fluidResult: fluidResult,
+            analysis: analysis,
+            actionTaken: actionTaken,
+            date2: date2,
+        }).then((response) => {});
     }
     const dateChangeHandler2 = (event) => {
         setDate2(event.target.value);
     };
 
-    const dateChangeHandler = (event) => {
-        setDate(event.target.value);
-    };
+    // const dateChangeHandler = (event) => {
+    //     setDate(event.target.value);
+    // };
     const brandChangeHandler = (event) => {
         setBrand(event.target.value);
     };
@@ -80,8 +87,6 @@ const LogScopeForm = (props) => {
     };
 
     const resetHandler = () => {
-        // setMonth("");
-        setDate("");
         setBrand("");
         setType("");
         setModelNo("");
@@ -99,19 +104,6 @@ const LogScopeForm = (props) => {
             <Form>
                 <Form.Label>Collection Period</Form.Label>
                 <Row className="mb-4">
-                    {/* <Col>
-                        <FloatingLabel
-                            controlId="floatingInput"
-                            label="Month of Collection"
-                        >
-                            <Form.Control
-                                type="month"
-                                placeholder="month of collection"
-                                onChange={monthChangeHandler}
-                                value={month}
-                            />
-                        </FloatingLabel>
-                    </Col> */}
                     <Col xs={12} lg={6}>
                         <FloatingLabel
                             controlId="floatingInput"
@@ -120,9 +112,9 @@ const LogScopeForm = (props) => {
                             <Form.Control
                                 type="date"
                                 placeholder="date of collection"
-                                onChange={dateChangeHandler}
-                                value={date}
+                                value={today}
                                 required
+                                disabled
                             />
                         </FloatingLabel>
                     </Col>
@@ -189,7 +181,19 @@ const LogScopeForm = (props) => {
 
                 <Row className="mb-3">
                     <Col>
-                        <FloatingLabel
+                        <Form.Label>Washed By</Form.Label>
+                        <Form.Select
+                            value={washedBy}
+                            onChange={(e) => setWashedBy(e.target.value)}
+                        >
+                            <option>Select Name</option>
+                            <option value="Tan Mei Mei">Tan Mei Mei</option>
+                            <option value="Chong Foo Meng">
+                                Chong Foo Meng
+                            </option>
+                            <option value="Mandy Teo">Mandy Teo</option>
+                        </Form.Select>
+                        {/* <FloatingLabel
                             controlId="floatingInputGrid"
                             label="Washed by"
                         >
@@ -200,24 +204,36 @@ const LogScopeForm = (props) => {
                                 value={washedBy}
                                 required
                             />
-                        </FloatingLabel>
+                        </FloatingLabel> */}
                     </Col>
                     <Col>
-                        <FloatingLabel
-                            controlId="floatingInputGrid"
-                            label="Collected By"
+                        <Form.Label>Collected By</Form.Label>
+                        <Form.Select
+                            value={collectedBy}
+                            onChange={(e) => setCollectedBy(e.target.value)}
                         >
-                            <Form.Control
-                                type="text"
-                                placeholder="collected by"
-                                onChange={collectedByChangeHandler}
-                                value={collectedBy}
-                                required
-                            />
-                        </FloatingLabel>
+                            <option>Select Name</option>
+                            <option value="Tan Mei Mei">Tan Mei Mei</option>
+                            <option value="Chong Foo Meng">
+                                Chong Foo Meng
+                            </option>
+                            <option value="Mandy Teo">Mandy Teo</option>
+                        </Form.Select>
                     </Col>
                     <Col>
-                        <FloatingLabel
+                        <Form.Label>Circulated By</Form.Label>
+                        <Form.Select
+                            value={circulatedBy}
+                            onChange={(e) => setCirculatedBy(e.target.value)}
+                        >
+                            <option>Select Name</option>
+                            <option value="Tan Mei Mei">Tan Mei Mei</option>
+                            <option value="Chong Foo Meng">
+                                Chong Foo Meng
+                            </option>
+                            <option value="Mandy Teo">Mandy Teo</option>
+                        </Form.Select>
+                        {/* <FloatingLabel
                             controlId="floatingInputGrid"
                             label="Circulated by"
                         >
@@ -228,7 +244,7 @@ const LogScopeForm = (props) => {
                                 value={circulatedBy}
                                 required
                             />
-                        </FloatingLabel>
+                        </FloatingLabel> */}
                     </Col>
                 </Row>
 
