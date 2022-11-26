@@ -77,6 +77,15 @@ app.post('/DeleteScopeToday',(req,res) => {
             if(err) {
                 console.log(err);
             }
+            else {
+                db.query("UPDATE no_of_sampling_per_day SET filled= filled - 1 WHERE cast(date as Date) = cast(DATE(CONVERT_TZ(NOW(),'MST7MDT','+08:00')) as Date);",
+                (err, result) => {
+                    if(err) {
+                        console.log(err);
+                    }
+                }
+                )
+            }
         }
     );
 })
@@ -91,6 +100,15 @@ app.post('/DeleteWasherToday',(req,res) => {
         (err, result) => {
             if(err) {
                 console.log(err);
+            }
+            else {
+                db.query("UPDATE no_of_sampling_per_day SET filled= filled - 1 WHERE cast(date as Date) = cast(DATE(CONVERT_TZ(NOW(),'MST7MDT','+08:00')) as Date);",
+                (err, result) => {
+                    if(err) {
+                        console.log(err);
+                    }
+                }
+                )
             }
         }
     );

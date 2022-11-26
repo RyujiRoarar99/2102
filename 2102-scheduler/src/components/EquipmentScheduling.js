@@ -216,7 +216,6 @@ class EquipmentScheduling extends Component {
                 let index = 0;
                 //Find index for scopeslots
                 for (var i in this.state.scopeSlots) {
-                    console.log(this.state.scopeSlots[i][0]);
                     if (this.state.scopeSlots[i][0] === date) {
                         break;
                     }
@@ -225,11 +224,12 @@ class EquipmentScheduling extends Component {
                 // 1. Make a shallow copy of the items
                 let scopeSlots = [...this.state.scopeSlots];
                 // 2. Make a shallow copy of the item you want to mutate
-                let item = [...scopeSlots[index]];
+                let item = [scopeSlots[index]];
                 // 3. Replace the property you're intested in
                 item[2] -= 1;
                 // 4. Put it back into our array. N.B. we *are* mutating the array here,
                 //    but that's why we made a copy first
+                
                 scopeSlots[index] = item;
                 // 5. Set the state to our new copy
                 this.setState({ scopeSlots });
