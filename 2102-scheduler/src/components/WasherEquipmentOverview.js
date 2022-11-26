@@ -24,16 +24,15 @@ const WasherEquipmentOverview = (props) => {
 
     useEffect(() => {
         Axios.post("http://localhost:3001/EquipmentOverviewWasher", {
-        filteredSerialNo:filteredSerialNo
+            filteredSerialNo: filteredSerialNo,
         }).then((response) => {
-        if(response.data.length) {
-            setWasherData(response.data);
-        }
-        else {
-            setWasherData([]);
-        }
-    });
-    },[filteredSerialNo])
+            if (response.data.length) {
+                setWasherData(response.data);
+            } else {
+                setWasherData([]);
+            }
+        });
+    }, [filteredSerialNo]);
     const handleClose = () => setShow(false);
     const handleShow = (event) => {
         const rowDataArray =
@@ -44,13 +43,12 @@ const WasherEquipmentOverview = (props) => {
         setSelectedWasher(washer);
 
         Axios.post("http://localhost:3001/EquipmentOverviewWasherLogs", {
-        SerialNo:washerSerialNo
+            SerialNo: washerSerialNo,
         }).then((response) => {
-            if(response.data.length) {
+            if (response.data.length) {
                 setWasherSamples(response.data);
                 setShow(true);
-            }
-            else {
+            } else {
                 setWasherSamples([]);
                 setShow(true);
             }
@@ -77,7 +75,12 @@ const WasherEquipmentOverview = (props) => {
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} size="lg" dialogClassName="my-modal">
+            <Modal
+                show={show}
+                onHide={handleClose}
+                size="lg"
+                dialogClassName="my-modal"
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>{`${selectedWasher[0]} [${selectedWasher[1]}]`}</Modal.Title>
                 </Modal.Header>
@@ -119,14 +122,38 @@ const WasherEquipmentOverview = (props) => {
                                         />
                                     </td>
                                     <td className="col-1">{index + 1}</td>
-                                    <td className="">{moment(tuple.date_of_collection).utc().format("D MMM YYYY")}</td> {/* date of collection */}
-                                    <td className="">{tuple.collected_by}</td> {/* collected by */}
-                                    <td className="">{tuple.circulated_by}</td> {/* circulated by */}
-                                    <td className="">{tuple.circulated_by}</td> {/* logged_by */}
-                                    <td className="">{tuple.date_of_result}</td> {/* date of result */}
-                                    <td className="">{tuple.fluid_result}</td> {/* fluid result */}
-                                    <td className="">{tuple.analysis}</td> {/* analysis */}
-                                    <td className="">{tuple.action_taken}</td> {/* action taken */}
+                                    <td className="">
+                                        {moment(tuple.date_of_collection)
+                                            .utc()
+                                            .format("D MMM YYYY")}
+                                    </td>{" "}
+                                    {/* date of collection */}
+                                    <td className="">
+                                        {tuple.collected_by}
+                                    </td>{" "}
+                                    {/* collected by */}
+                                    <td className="">
+                                        {tuple.circulated_by}
+                                    </td>{" "}
+                                    {/* circulated by */}
+                                    <td className="">
+                                        {tuple.circulated_by}
+                                    </td>{" "}
+                                    {/* logged_by */}
+                                    <td className="">
+                                        {tuple.date_of_result}
+                                    </td>{" "}
+                                    {/* date of result */}
+                                    <td className="">
+                                        {tuple.fluid_result}
+                                    </td>{" "}
+                                    {/* fluid result */}
+                                    <td className="">{tuple.analysis}</td>{" "}
+                                    {/* analysis */}
+                                    <td className="">
+                                        {tuple.action_taken}
+                                    </td>{" "}
+                                    {/* action taken */}
                                 </tr>
                             ))}
                         </tbody>
@@ -145,26 +172,13 @@ const WasherEquipmentOverview = (props) => {
                             <Col>
                                 <FloatingLabel
                                     controlId="floatingInput"
-                                    label="Month of Collection"
-                                >
-                                    <Form.Control
-                                        type="month"
-                                        placeholder="month of collection"
-                                        disabled
-                                        value={null}
-                                    />
-                                </FloatingLabel>
-                            </Col>
-                            <Col>
-                                <FloatingLabel
-                                    controlId="floatingInput"
                                     label="Date of Collection"
                                 >
                                     <Form.Control
-                                        type="date"
+                                        type="text"
                                         placeholder="date of collection"
                                         disabled
-                                        value={null}
+                                        value={"23-11-2022"}
                                     />
                                 </FloatingLabel>
                             </Col>
@@ -233,7 +247,7 @@ const WasherEquipmentOverview = (props) => {
 
                         <Form.Label>Fluid Results</Form.Label>
                         <Row className="mb-3">
-                        <Col>
+                            <Col>
                                 <FloatingLabel
                                     controlId="floatingInput"
                                     label="Date of Result"
@@ -241,12 +255,11 @@ const WasherEquipmentOverview = (props) => {
                                     <Form.Control
                                         type="date"
                                         placeholder="date of result"
-                                        disabled
                                         value={null}
                                     />
                                 </FloatingLabel>
-                        </Col>
-                        <Col>
+                            </Col>
+                            <Col>
                                 <FloatingLabel
                                     controlId="floatingInputGrid"
                                     label="Fluid Result"
@@ -312,7 +325,9 @@ const WasherEquipmentOverview = (props) => {
                         <Form.Control
                             type="text"
                             placeholder="serial no"
-                            onChange={(e) => setFilteredSerialNo(e.target.value)}
+                            onChange={(e) =>
+                                setFilteredSerialNo(e.target.value)
+                            }
                         />
                     </FloatingLabel>
                 </Col>
@@ -363,7 +378,9 @@ const WasherEquipmentOverview = (props) => {
                                 <td className="">{tuple.remarks}</td>
                                 <td className="">{tuple.sampling_frequency}</td>
                                 <td className="">{tuple.last_sampling_date}</td>
-                                <td className="">{tuple.next_required_sampling}</td>
+                                <td className="">
+                                    {tuple.next_required_sampling}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

@@ -6,118 +6,120 @@ import Hospital from "../assets/hospital.jpg";
 import { Form, Row, Col, Card, Button, Container } from "react-bootstrap";
 
 const LogInForm = () => {
-  const navigate = useNavigate();
-  //states for getting user and password
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-  const [validated, setValidated] = useState(false);
+    //states for getting user and password
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    const [validated, setValidated] = useState(false);
 
-    setValidated(true);
-  };
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
 
-  //checks whether user has successfully logged in
-  const [loginStatus, setLoginStatus] = useState("");
+        setValidated(true);
+    };
 
-  //login event
-  const login = (event) => {
-    event.preventDefault();
+    //checks whether user has successfully logged in
+    const [loginStatus, setLoginStatus] = useState("");
 
-    Axios.post("http://localhost:3001/login", {
-      username: username,
-      password: password,
-    }).then((response) => {
-      if (response.data.length) {
-        navigate("/Home");
-      } else {
-        setLoginStatus("Invalid Username/Password!"); //Jeriel change message accordingly
-      }
-    });
-  };
+    //login event
+    const login = (event) => {
+        event.preventDefault();
 
-  return (
-    <Container className="d-flex justify-content-center">
-      <Col className="col-sm-3">
-        <Row className="d-flex justify-content-between">
-          <Container className="d-flex justify-content-center">
-            <img src={Hospital} alt="" />
-          </Container>
-        </Row>
+        Axios.post("http://localhost:3001/login", {
+            username: username,
+            password: password,
+        }).then((response) => {
+            if (response.data.length) {
+                navigate("/Home");
+            } else {
+                setLoginStatus("Invalid Username/Password!"); //Jeriel change message accordingly
+            }
+        });
+    };
 
-        <Card body>
-          <Form
-            className="rounded p-4 p-sm-3"
-            noValidate
-            validated={validated}
-            onSubmit={handleSubmit}
-          >
-            <Row className="mb-3">
-              <Form.Group controlId="formID">
-                <Form.Label>ID No.</Form.Label>
-                <Form.Control
-                  required
-                  type="id"
-                  placeholder="Enter ID"
-                  value={username}
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                  }}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Enter ID
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Row>
+    return (
+        <Container className="d-flex justify-content-center">
+            <Col className="col-sm-3">
+                <Row className="d-flex justify-content-between">
+                    <Container className="d-flex justify-content-center">
+                        <img src={Hospital} alt="" />
+                    </Container>
+                </Row>
 
-            <Row className="mb-3">
-              <Form.Group controlId="formPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  placeholder="Enter Password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Enter password
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Row>
+                <Card body>
+                    <Form
+                        className="rounded p-4 p-sm-3"
+                        noValidate
+                        validated={validated}
+                        onSubmit={handleSubmit}
+                    >
+                        <Row className="mb-3">
+                            <Form.Group controlId="formID">
+                                <Form.Label>ID No.</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="id"
+                                    placeholder="Enter ID"
+                                    value={username}
+                                    onChange={(e) => {
+                                        setUsername(e.target.value);
+                                    }}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Enter ID
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                        </Row>
 
-<Row>
-            <Button
-              href="/Home"
-              variant="primary"
-              type="submit"
-              onClick={login}
-            >
-              Log In
-            </Button>
-            </Row>
+                        <Row className="mb-3">
+                            <Form.Group controlId="formPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="password"
+                                    placeholder="Enter Password"
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Enter password
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                        </Row>
 
-            <Row>
-            <Button 
-            href="/RegisterPage" 
-            variant="white" 
-            type="submit">
-              Register Account
-            </Button>
-            </Row>
-          </Form>
-        </Card>
-      </Col>
-    </Container>
-  );
+                        <Row>
+                            <Button
+                                href="/Home"
+                                variant="primary"
+                                type="submit"
+                                onClick={login}
+                            >
+                                Log In
+                            </Button>
+                        </Row>
+
+                        <Row>
+                            <Button
+                                href="/RegisterPage"
+                                variant="white"
+                                type="submit"
+                            >
+                                Register Account
+                            </Button>
+                        </Row>
+                    </Form>
+                </Card>
+            </Col>
+        </Container>
+    );
 };
 
 export default LogInForm;

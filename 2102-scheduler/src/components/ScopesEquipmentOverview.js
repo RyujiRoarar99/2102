@@ -9,7 +9,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import moment from "moment";
-import "./ScopesEquipmentOverview.css"
+import "./ScopesEquipmentOverview.css";
 
 const ScopesEquipmentOverview = (props) => {
     const dropdownContents = ["Select Equipment", "Scopes", "Washer"];
@@ -27,16 +27,15 @@ const ScopesEquipmentOverview = (props) => {
     //does subsequent checks for changing data
     useEffect(() => {
         Axios.post("http://localhost:3001/EquipmentOverviewScope", {
-        filteredSerialNo:filteredSerialNo
+            filteredSerialNo: filteredSerialNo,
         }).then((response) => {
-        if(response.data.length) {
-            setScopeData(response.data);
-        }
-        else {
-            setScopeData([]);
-        }
-    });
-    },[filteredSerialNo])
+            if (response.data.length) {
+                setScopeData(response.data);
+            } else {
+                setScopeData([]);
+            }
+        });
+    }, [filteredSerialNo]);
 
     const handleClose = () => setShow(false);
     const handleShow = (event) => {
@@ -47,12 +46,11 @@ const ScopesEquipmentOverview = (props) => {
         const scope = [scopeSerialNo, scopeModelNo];
         setSelectedScope(scope);
         Axios.post("http://localhost:3001/EquipmentOverviewScopeLogs", {
-        SerialNo:scopeSerialNo
+            SerialNo: scopeSerialNo,
         }).then((response) => {
-            if(response.data.length) {
+            if (response.data.length) {
                 setScopeSamples(response.data);
-            }
-            else {
+            } else {
                 setScopeSamples([]);
             }
         });
@@ -70,10 +68,19 @@ const ScopesEquipmentOverview = (props) => {
         const collectedBy = rowDataArray[4];
         const circulatedBy = rowDataArray[5];
         const date_of_result = rowDataArray[6];
-        const fluidResult = rowDataArray[7]
-        const analysis = rowDataArray[8]
-        const actionTaken = rowDataArray[9]
-        const sampleInformation = [date, washedBy, collectedBy, circulatedBy, date_of_result, fluidResult, analysis, actionTaken];
+        const fluidResult = rowDataArray[7];
+        const analysis = rowDataArray[8];
+        const actionTaken = rowDataArray[9];
+        const sampleInformation = [
+            date,
+            washedBy,
+            collectedBy,
+            circulatedBy,
+            date_of_result,
+            fluidResult,
+            analysis,
+            actionTaken,
+        ];
         setSelectedSample(sampleInformation);
 
         setShow2(true);
@@ -81,11 +88,16 @@ const ScopesEquipmentOverview = (props) => {
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} size="lg" dialogClassName="my-modal">
+            <Modal
+                show={show}
+                onHide={handleClose}
+                size="lg"
+                dialogClassName="my-modal"
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>{`${selectedScope[0]} [${selectedScope[1]}]`}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body >
+                <Modal.Body>
                     <Table
                         className="mt-2"
                         id="Scopes"
@@ -124,15 +136,42 @@ const ScopesEquipmentOverview = (props) => {
                                         />
                                     </td>
                                     <td className="col-1">{index + 1}</td>
-                                    <td className="">{moment(tuple.date_of_collection).utc().format("D MMM YYYY")}</td> {/* date of collection */}
-                                    <td className="">{tuple.collected_by}</td> {/* washed by*/}
-                                    <td className="">{tuple.collected_by}</td> {/* collected by */}
-                                    <td className="">{tuple.circulated_by}</td> {/* circulated by */}
-                                    <td className="">{tuple.collected_by}</td> {/* logged_by */}
-                                    <td className="">{tuple.date_of_result}</td> {/* date of result */}
-                                    <td className="">{tuple.fluid_result}</td> {/* fluid result */}
-                                    <td className="">{tuple.analysis}</td> {/* analysis */}
-                                    <td className="">{tuple.action_taken}</td> {/* action taken */}
+                                    <td className="">
+                                        {moment(tuple.date_of_collection)
+                                            .utc()
+                                            .format("D MMM YYYY")}
+                                    </td>{" "}
+                                    {/* date of collection */}
+                                    <td className="">
+                                        {tuple.collected_by}
+                                    </td>{" "}
+                                    {/* washed by*/}
+                                    <td className="">
+                                        {tuple.collected_by}
+                                    </td>{" "}
+                                    {/* collected by */}
+                                    <td className="">
+                                        {tuple.circulated_by}
+                                    </td>{" "}
+                                    {/* circulated by */}
+                                    <td className="">
+                                        {tuple.collected_by}
+                                    </td>{" "}
+                                    {/* logged_by */}
+                                    <td className="">
+                                        {tuple.date_of_result}
+                                    </td>{" "}
+                                    {/* date of result */}
+                                    <td className="">
+                                        {tuple.fluid_result}
+                                    </td>{" "}
+                                    {/* fluid result */}
+                                    <td className="">{tuple.analysis}</td>{" "}
+                                    {/* analysis */}
+                                    <td className="">
+                                        {tuple.action_taken}
+                                    </td>{" "}
+                                    {/* action taken */}
                                 </tr>
                             ))}
                         </tbody>
@@ -151,26 +190,13 @@ const ScopesEquipmentOverview = (props) => {
                             <Col>
                                 <FloatingLabel
                                     controlId="floatingInput"
-                                    label="Month of Collection"
-                                >
-                                    <Form.Control
-                                        type="month"
-                                        placeholder="month of collection"
-                                        disabled
-                                        value={null}
-                                    />
-                                </FloatingLabel>
-                            </Col>
-                            <Col>
-                                <FloatingLabel
-                                    controlId="floatingInput"
                                     label="Date of Collection"
                                 >
                                     <Form.Control
-                                        type="date"
+                                        type="text"
                                         placeholder="date of collection"
                                         disabled
-                                        value={null}
+                                        value={"05-11-2022"}
                                     />
                                 </FloatingLabel>
                             </Col>
@@ -252,7 +278,7 @@ const ScopesEquipmentOverview = (props) => {
 
                         <Form.Label>Fluid Results</Form.Label>
                         <Row className="mb-3">
-                        <Col>
+                            <Col>
                                 <FloatingLabel
                                     controlId="floatingInput"
                                     label="Date of Result"
@@ -260,12 +286,11 @@ const ScopesEquipmentOverview = (props) => {
                                     <Form.Control
                                         type="date"
                                         placeholder="date of result"
-                                        disabled
                                         value={null}
                                     />
                                 </FloatingLabel>
-                        </Col>
-                        <Col>
+                            </Col>
+                            <Col>
                                 <FloatingLabel
                                     controlId="floatingInputGrid"
                                     label="Fluid Result"
@@ -331,7 +356,9 @@ const ScopesEquipmentOverview = (props) => {
                         <Form.Control
                             type="text"
                             placeholder="serial no"
-                            onChange={(e) => setFilteredSerialNo(e.target.value)}
+                            onChange={(e) =>
+                                setFilteredSerialNo(e.target.value)
+                            }
                         />
                     </FloatingLabel>
                 </Col>
